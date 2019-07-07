@@ -62,6 +62,7 @@ In each category, papers are sorted chronologically.
 + [On Lazy Training in Differentiable Programming](./papers/1812.07956.pdf)
     + 12/2018
     + They show that NTK regime can be controlled by rescaling the model, and show (experimentally) that neural nets in practice perform better than those in lazy regime.
+    + Also this seems to be independent of width. So scaling the model is a much easier way to get to lazy training, versus the infinite width + infinitesimal learning rate route??
 
 [https://arxiv.org/pdf/1906.08034.pdf]: #
 + [Disentangling feature and lazy learning in deep neural networks: an empirical study](./papers/1906.08034.pdf)
