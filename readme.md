@@ -1,5 +1,7 @@
 # Neural tangent kernel
 
+In each category, papers are sorted chronologically.
+
 [https://www.youtube.com/watch?v=NGon2JyjO6Y]: #
 + [Recent Developments in Over-parametrized Neural Networks, Part II](https://www.youtube.com/watch?v=NGon2JyjO6Y)
     +  YouTube, Simons institute workshop.
