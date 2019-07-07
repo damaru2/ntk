@@ -122,10 +122,6 @@ In each category, papers are sorted chronologically.
 + [Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation](./papers/1902.04760.pdf)
     + 02/2019
 
-[https://arxiv.org/pdf/1905.03684.pdf]: #
-+ [Data-dependent Sample Complexity of Deep Neural Networks via Lipschitz Augmentation](./papers/1905.03684.pdf)
-    + 05/2019
-
 [https://arxiv.org/pdf/1810.09665.pdf]: #
 + [A jamming transition from under- to over-parametrization affects loss landscape and generalization](./papers/1810.09665.pdf)
     + 10/2018
