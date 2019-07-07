@@ -64,8 +64,8 @@ In each category, papers are sorted chronologically.
 
 [https://arxiv.org/pdf/1906.08034.pdf]: #
 + [Disentangling feature and lazy learning in deep neural networks: an empirical study](./papers/1906.08034.pdf)
-        + 06/2019
-        + Similar to above (Chizat et al.), but more experimental.
+    + 06/2019
+    + Similar to above (Chizat et al.), but more experimental.
 
 ## Generalization
 
