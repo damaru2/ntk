@@ -60,7 +60,8 @@ In each category, papers are sorted chronologically.
 
 [https://arxiv.org/pdf/1812.07956.pdf ]: #
 + [On Lazy Training in Differentiable Programming](./papers/1812.07956.pdf)
-    + They show that NTK regime can be controlled by rescaling the model, and analyze
+    + 12/2018
+    + They show that NTK regime can be controlled by rescaling the model, and show (experimentally) that neural nets in practice perform better than those in lazy regime.
 
 [https://arxiv.org/pdf/1906.08034.pdf]: #
 + [Disentangling feature and lazy learning in deep neural networks: an empirical study](./papers/1906.08034.pdf)
@@ -92,10 +93,6 @@ In each category, papers are sorted chronologically.
 + [What Can ResNet Learn Efficiently, Going Beyond Kernels?](./papers/1905.10337.pdf)
     + 05/2019
     + Shows in the PAC setting that there are ("simple") functions that ResNets learn efficiently and such that any kernel gets test error much greater for the same sample complexity. in particular NTKs too.
-
-[https://arxiv.org/pdf/1906.05392.pdf]: #
-+ [Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian](./papers/1906.05392.pdf)
-    + 06/2019
     
 [https://arxiv.org/pdf/1905.10843.pdf]: #
 + [Asymptotic learning curves of kernel methods: empirical data v.s. Teacher-Student paradigm](./papers/1905.10843.pdf)
@@ -103,13 +100,16 @@ In each category, papers are sorted chronologically.
     + I think that getting learning curves for neural nets is a very interesting challenge.
     + Here they do it for kernels, but if the NN behaves like a kernel, it would be relevant..
 
+[https://arxiv.org/pdf/1906.05392.pdf]: #
++ [Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian](./papers/1906.05392.pdf)
+    + 06/2019
+
 ## Others
 
-
-[https://arxiv.org/pdf/1906.01930.pdf]: #
-+ [Approximate Inference Turns Deep Networks into Gaussian Processes](./papers/1906.01930.pdf)
-    + 06/2019
-    + Shows Bayesian NNs (of any width) are equivalent to GPs, surprisingly with kernel given by NTK
+[https://arxiv.org/pdf/1902.04760.pdf]: #
++ [Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation](./papers/1902.04760.pdf)
+    + 02/2019
+    + Although this paper is really cool in that it shows that most kinds of neural networks become GPs when infinitely wide, w.r.t. NTK, it just shows a proof where the layer widths can go to infinity at the same time, and generalizes it to more architectures, so doesn’t feel like necessarily much new insight?
 
 [https://arxiv.org/pdf/1905.12173.pdf]: #
 + [On the Inductive Bias of Neural Tangent Kernels](./papers/1905.12173.pdf)
@@ -117,10 +117,10 @@ In each category, papers are sorted chronologically.
     + This is just about properties of NTK (so not studying NNs directly).
     + They find that the NTK model has different type of stability to deformations of the input than other NNGPs, and better approximation properties (whatever that means)
 
-[https://arxiv.org/pdf/1902.04760.pdf]: #
-+ [Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation](./papers/1902.04760.pdf)
-    + 02/2019
-    + Although this paper is really cool in that it shows that most kinds of neural networks become GPs when infinitely wide, w.r.t. NTK, it just shows a proof where the layer widths can go to infinity at the same time, and generalizes it to more architectures, so doesn’t feel like necessarily much new insight?
+[https://arxiv.org/pdf/1906.01930.pdf]: #
++ [Approximate Inference Turns Deep Networks into Gaussian Processes](./papers/1906.01930.pdf)
+    + 06/2019
+    + Shows Bayesian NNs (of any width) are equivalent to GPs, surprisingly with kernel given by NTK
 
 # ToClassify
 
