@@ -70,6 +70,12 @@ In each category, papers are sorted chronologically.
 + [Disentangling feature and lazy learning in deep neural networks: an empirical study](./papers/1906.08034.pdf)
     + 06/2019
     + Similar to above (Chizat et al.), but more experimental.
+    
+[https://arxiv.org/pdf/1906.05827.pdf]: #
++ [Kernel and deep regimes in overparametrized models](https://arxiv.org/pdf/1906.05827.pdf)
+    + 06/2019
+    + Large initialization leads to kernel/lazy regime
+    + Small initialization leads to deep/active/adaptive regime, which can sometimes lead to better generalization. They claim this is the regime that allows one to "exploit the power of depth", and thus is key to understanding deep learning.
 
 ## Generalization
 
