@@ -41,6 +41,7 @@ In each category, papers are sorted chronologically.
 [https://arxiv.org/pdf/1902.06720.pdf]: #
 + [Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)
     + 02/2019
+    + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
     + Experiments
 
 ### Infinite limit
