@@ -38,18 +38,19 @@ In each category, papers are sorted chronologically.
     + Convergence to global minima if low polynomial width is assumed.
 
 
-[https://arxiv.org/pdf/1902.06720.pdf]: #
-+ [Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)
-    + 02/2019
-    + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
-    + Experiments
-
 ### Infinite limit
 
 [https://arxiv.org/pdf/1806.07572.pdf ]: #
 + [Neural Tangent Kernel: Convergence and Generalization in Neural Networks ](./papers/1806.07572.pdf)
     + 06/2018
     + Original paper.
+
+[https://arxiv.org/pdf/1902.06720.pdf]: #
++ [Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)
+    + 02/2019
+    + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
+    + Experiments
+
 
 [https://arxiv.org/pdf/1904.11955.pdf]: #
 + [On Exact Computation with an Infinitely Wide Neural Net](./papers/1904.11955.pdf)
