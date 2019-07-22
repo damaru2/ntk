@@ -22,7 +22,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + It proves positive definiteness of the kernel for certain regimes, thus proving you can optimize to reach a global minimum at a linear rate.
 
 [https://arxiv.org/pdf/1902.06720.pdf]: #
-+ [~~Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent~~](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pd)
++ ^[Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pd)
     + 02/2019
     + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
     + Experiments
@@ -100,7 +100,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + Theorems are not based on NTKs, but it has experiments showing how generalization for 3-layer NNs is better than for its corresponding NTK.
 
 [https://arxiv.org/pdf/1901.08584.pdf]: #
-+ [Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pd)
++ [~~Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks~~](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pd)
     + 01/2019
     + Arora et al
     + "Our work is related to kernel methods, especially recent discoveries of the connection between deep
@@ -149,7 +149,7 @@ learning and kernels (Jacot et al., 2018; Chizat & Bach, 2018b;...) Our analysis
     + They find that the NTK model has different type of stability to deformations of the input than other NNGPs, and better approximation properties (whatever that means)
 
 [https://arxiv.org/pdf/1906.01930.pdf]: #
-+ [~~Approximate Inference Turns Deep Networks into Gaussian Processes~~](./papers/1906.01930.pdf)  -- [link](https://arxiv.org/pdf/1906.01930.pd)
++ ^[Approximate Inference Turns Deep Networks into Gaussian Processes](./papers/1906.01930.pdf)  -- [link](https://arxiv.org/pdf/1906.01930.pd)
     + 06/2019
     + Shows Bayesian NNs (of any width) are equivalent to GPs, surprisingly with kernel given by NTK
 
