@@ -22,14 +22,14 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + It proves positive definiteness of the kernel for certain regimes, thus proving you can optimize to reach a global minimum at a linear rate.
 
 [https://arxiv.org/pdf/1902.06720.pdf]: #
-+ [~~Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent~~](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pd)
++ [~~Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent~~](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pdf)
     + 02/2019
     + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
     + Experiments
 
 
 [https://arxiv.org/pdf/1904.11955.pdf]: #
-+ ^[On Exact Computation with an Infinitely Wide Neural Net](./papers/1904.11955.pdf)  -- [link](https://arxiv.org/pdf/1904.11955.pd)
++ ^[On Exact Computation with an Infinitely Wide Neural Net](./papers/1904.11955.pdf)  -- [link](https://arxiv.org/pdf/1904.11955.pdf)
     + 04/2019
     + Shows that NTK work somewhat worse than NNs, but not as much worse as previous work suggested.
     + Claims to show a proof that sounds similar to those of Allen-Zhu, Du etc. but not sure what the difference is.
@@ -42,7 +42,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + See below
 
 [https://arxiv.org/pdf/1811.03962.pdf]: #
-+ [~~A Convergence Theory for Deep Learning via Over-Parameterization~~](./papers/1811.03962.pdf)  -- [link](https://arxiv.org/pdf/1811.03962.pd)
++ [~~A Convergence Theory for Deep Learning via Over-Parameterization~~](./papers/1811.03962.pdf)  -- [link](https://arxiv.org/pdf/1811.03962.pdf)
     + 9/11/2018
     + Simplification of [On the Convergence Rate of Training Recurrent Neural Networks](./papers/1810.12065.pdf).
     + Convergence to global optima whp for GD and SGD.
@@ -51,25 +51,25 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 
 
 [https://arxiv.org/pdf/1811.03804.pdf]: #
-+ ^[Gradient Descent Finds Global Minima of Deep Neural Network.](./papers/1811.03804.pdf)  -- [link](https://arxiv.org/pdf/1811.03804.pd)
++ ^[Gradient Descent Finds Global Minima of Deep Neural Network.](./papers/1811.03804.pdf)  -- [link](https://arxiv.org/pdf/1811.03804.pdf)
     + 9/11/2018
     + Du et al 
     + Convergence to global optima whp for GD for \ell_2.
     + Exponential width wrt depth needed in fully connected. Polynomial for resnets.
 
 [https://arxiv.org/pdf/1901.08572.pdf]: #
-+ [~~Width Provably Matters in Optimization for Deep Linear Neural Networks~~](./papers/1901.08572.pdf)  -- [link](https://arxiv.org/pdf/1901.08572.pd)
++ [~~Width Provably Matters in Optimization for Deep Linear Neural Networks~~](./papers/1901.08572.pdf)  -- [link](https://arxiv.org/pdf/1901.08572.pdf)
     + 12/2019
     + Du et al. 
     + Deep linear neural network
     + Convergence to global minima if low polynomial width is assumed.
 
 [https://arxiv.org/pdf/1811.08888.pdf]: #
-+ [~~Stochastic Gradient Descent Optimizes Over-parameterized Deep ReLU Networks~~](./papers/1811.08888.pdf)  -- [link](https://arxiv.org/pdf/1811.08888.pd)
++ [~~Stochastic Gradient Descent Optimizes Over-parameterized Deep ReLU Networks~~](./papers/1811.08888.pdf)  -- [link](https://arxiv.org/pdf/1811.08888.pdf)
     + 21/11/2018
 
 [https://arxiv.org/pdf/1812.10004.pdf]: #
-+ [~~Overparameterized Nonlinear Learning: Gradient Descent Takes the Shortest Path?~~](./papers/1812.10004.pdf)  -- [link](https://arxiv.org/pdf/1812.10004.pd)
++ [~~Overparameterized Nonlinear Learning: Gradient Descent Takes the Shortest Path?~~](./papers/1812.10004.pdf)  -- [link](https://arxiv.org/pdf/1812.10004.pdf)
     + 25/11/2018
     + Results for one hidden layer NNs, generalized linear models and low-rank matrix regression.
 
@@ -82,12 +82,12 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + Also this seems to be independent of width. So scaling the model is a much easier way to get to lazy training, versus the infinite width + infinitesimal learning rate route??
 
 [https://arxiv.org/pdf/1906.08034.pdf]: #
-+ [~~Disentangling feature and lazy learning in deep neural networks: an empirical study~~](./papers/1906.08034.pdf)  -- [link](https://arxiv.org/pdf/1906.08034.pd)
++ [~~Disentangling feature and lazy learning in deep neural networks: an empirical study~~](./papers/1906.08034.pdf)  -- [link](https://arxiv.org/pdf/1906.08034.pdf)
     + 06/2019
     + Similar to above (Chizat et al.), but more experimental.
     
 [https://arxiv.org/pdf/1906.05827.pdf]: #
-+ [~~Kernel and deep regimes in overparametrized models~~](./papers/1906.05827.pdf)  -- [link](https://arxiv.org/pdf/1906.05827.pd)
++ [~~Kernel and deep regimes in overparametrized models~~](./papers/1906.05827.pdf)  -- [link](https://arxiv.org/pdf/1906.05827.pdf)
     + 06/2019
     + Large initialization leads to kernel/lazy regime
     + Small initialization leads to deep/active/adaptive regime, which can sometimes lead to better generalization. They claim this is the regime that allows one to "exploit the power of depth", and thus is key to understanding deep learning.
@@ -96,24 +96,24 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 ## Generalization
 
 [https://arxiv.org/pdf/1811.04918.pdf]: #
-+ [~~Learning and Generalization in Overparameterized NeuralNetworks, Going Beyond Two Layers~~](./papers/1811.04918.pdf)  -- [link](https://arxiv.org/pdf/1811.04918.pd)
++ [~~Learning and Generalization in Overparameterized NeuralNetworks, Going Beyond Two Layers~~](./papers/1811.04918.pdf)  -- [link](https://arxiv.org/pdf/1811.04918.pdf)
     + 11/2018
     + Theorems are not based on NTKs, but it has experiments showing how generalization for 3-layer NNs is better than for its corresponding NTK.
 
 [https://arxiv.org/pdf/1901.08584.pdf]: #
-+ [Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pd)
++ [Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pdf)
     + 01/2019
     + Arora et al
     + "Our work is related to kernel methods, especially recent discoveries of the connection between deep
 learning and kernels (Jacot et al., 2018; Chizat & Bach, 2018b;...) Our analysis utilized several properties of a related kernel from the ReLU activation."
 
 [https://arxiv.org/pdf/1902.01384.pdf]: #
-+ [~~Generalization Error Bounds of Gradient Descent for Learning Over-parameterized Deep ReLU Networks~~](./papers/1902.01384.pdf)  -- [link](https://arxiv.org/pdf/1902.01384.pd)
++ [~~Generalization Error Bounds of Gradient Descent for Learning Over-parameterized Deep ReLU Networks~~](./papers/1902.01384.pdf)  -- [link](https://arxiv.org/pdf/1902.01384.pdf)
     + 02/2019
     + See below
     
 [https://arxiv.org/pdf/1905.13210.pdf]: #
-+ ^[Generalization Bounds of Stochastic Gradient Descent for Wide and Deep Neural Networks](./papers/1905.13210.pdf)  -- [link](https://arxiv.org/pdf/1905.13210.pd)
++ ^[Generalization Bounds of Stochastic Gradient Descent for Wide and Deep Neural Networks](./papers/1905.13210.pdf)  -- [link](https://arxiv.org/pdf/1905.13210.pdf)
     + 05/2019
     + Seems very similar to the one above. What are the differences? Just that this is SGD vs GD in the above paper?
     + Improves on the Arora2019 paper showing generalization bounds for NTK.
@@ -122,52 +122,52 @@ learning and kernels (Jacot et al., 2018; Chizat & Bach, 2018b;...) Our analysis
 
 
 [https://arxiv.org/pdf/1905.10337.pdf]: #
-+ [~~What Can ResNet Learn Efficiently, Going Beyond Kernels?~~](./papers/1905.10337.pdf)  -- [link](https://arxiv.org/pdf/1905.10337.pd)
++ [~~What Can ResNet Learn Efficiently, Going Beyond Kernels?~~](./papers/1905.10337.pdf)  -- [link](https://arxiv.org/pdf/1905.10337.pdf)
     + 05/2019
     + Shows in the PAC setting that there are ("simple") functions that ResNets learn efficiently and such that any kernel gets test error much greater for the same sample complexity. in particular NTKs too.
     
 [https://arxiv.org/pdf/1905.10843.pdf]: #
-+ [~~Asymptotic learning curves of kernel methods: empirical data v.s. Teacher-Student paradigm~~](./papers/1905.10843.pdf)  -- [link](https://arxiv.org/pdf/1905.10843.pd)
++ [~~Asymptotic learning curves of kernel methods: empirical data v.s. Teacher-Student paradigm~~](./papers/1905.10843.pdf)  -- [link](https://arxiv.org/pdf/1905.10843.pdf)
     + 05/2019
     + I think that getting learning curves for neural nets is a very interesting challenge.
     + Here they do it for kernels, but if the NN behaves like a kernel, it would be relevant..
 
 [https://arxiv.org/pdf/1906.05392.pdf]: #
-+ ^[Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian](./papers/1906.05392.pdf)  -- [link](https://arxiv.org/pdf/1906.05392.pd)
++ ^[Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian](./papers/1906.05392.pdf)  -- [link](https://arxiv.org/pdf/1906.05392.pdf)
     + 06/2019
 
 ## Others
 
 [https://arxiv.org/pdf/1902.04760.pdf]: #
-+ [~~Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation~~](./papers/1902.04760.pdf)  -- [link](https://arxiv.org/pdf/1902.04760.pd)
++ [~~Scaling Limits of Wide Neural Networks with Weight Sharing: Gaussian Process Behavior, Gradient Independence, and Neural Tangent Kernel Derivation~~](./papers/1902.04760.pdf)  -- [link](https://arxiv.org/pdf/1902.04760.pdf)
     + 02/2019
     + Although this paper is really cool in that it shows that most kinds of neural networks become GPs when infinitely wide, w.r.t. NTK, it just shows a proof where the layer widths can go to infinity at the same time, and generalizes it to more architectures, so doesn’t feel like necessarily much new insight?
 
 [https://arxiv.org/pdf/1905.12173.pdf]: #
-+ [~~On the Inductive Bias of Neural Tangent Kernels~~](./papers/1905.12173.pdf)  -- [link](https://arxiv.org/pdf/1905.12173.pd)
++ [~~On the Inductive Bias of Neural Tangent Kernels~~](./papers/1905.12173.pdf)  -- [link](https://arxiv.org/pdf/1905.12173.pdf)
     + 05/2019
     + This is just about properties of NTK (so not studying NNs directly).
     + They find that the NTK model has different type of stability to deformations of the input than other NNGPs, and better approximation properties (whatever that means)
 
 [https://arxiv.org/pdf/1906.01930.pdf]: #
-+ [~~Approximate Inference Turns Deep Networks into Gaussian Processes~~](./papers/1906.01930.pdf)  -- [link](https://arxiv.org/pdf/1906.01930.pd)
++ [~~Approximate Inference Turns Deep Networks into Gaussian Processes~~](./papers/1906.01930.pdf)  -- [link](https://arxiv.org/pdf/1906.01930.pdf)
     + 06/2019
     + Shows Bayesian NNs (of any width) are equivalent to GPs, surprisingly with kernel given by NTK
 
 # ToClassify
 
 [https://arxiv.org/pdf/1905.05095.pdf]: #
-+ [~~Spectral Analysis of Kernel and Neural Embeddings: Optimization and Generalization~~](./papers/1905.05095.pdf)  -- [link](https://arxiv.org/pdf/1905.05095.pd)
++ [~~Spectral Analysis of Kernel and Neural Embeddings: Optimization and Generalization~~](./papers/1905.05095.pdf)  -- [link](https://arxiv.org/pdf/1905.05095.pdf)
     + 05/2019
     + They just study what happens when you use a neural network or a kernel representation for data (fed as input to a NN I guess).
 
 [https://arxiv.org/pdf/1808.09372.pdf]: #
-+ [~~Mean Field Analysis of Neural Networks: A Central Limit Theorem~~](./papers/1808.09372.pdf)  -- [link](https://arxiv.org/pdf/1808.09372.pd)
++ [~~Mean Field Analysis of Neural Networks: A Central Limit Theorem~~](./papers/1808.09372.pdf)  -- [link](https://arxiv.org/pdf/1808.09372.pdf)
     + 08/2018
     + they only look at one hidden layer and squared error loss, so I’m not convinced of the novelty of results?
 
 [https://arxiv.org/pdf/1906.06321.pdf]: #
-+ [~~Provably Efficient $Q$-learning with Function Approximation via Distribution Shift Error Checking Oracle~~](./papers/1906.06321.pdf)  -- [link](https://arxiv.org/pdf/1906.06321.pd)
++ [~~Provably Efficient $Q$-learning with Function Approximation via Distribution Shift Error Checking Oracle~~](./papers/1906.06321.pdf)  -- [link](https://arxiv.org/pdf/1906.06321.pdf)
     + 06/2019
     + Not about NTK, but authors suggest it could be extended to use NTK to analyze NN-based function approximation.
 
