@@ -91,6 +91,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + 06/2019
     + Large initialization leads to kernel/lazy regime
     + Small initialization leads to deep/active/adaptive regime, which can sometimes lead to better generalization. They claim this is the regime that allows one to "exploit the power of depth", and thus is key to understanding deep learning.
+    + The systems they analyze in detail are rather simple (like matrix completion) or artificial (like a very ad-hoc type of neural network)
 
 ## Generalization
 
