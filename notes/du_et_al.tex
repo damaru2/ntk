@@ -1,0 +1,533 @@
+\documentclass[11pt]{article}
+
+% Estilo del documento
+\usepackage[utf8]{inputenc} 		% Lets you write accents with áéíóú etc
+\usepackage[T1]{fontenc}  			% Lets you write UTF-8 chars in the code
+\setlength{\headheight}{14.0pt}		% Removes fancy header warning (Not sure what it does)
+\usepackage{geometry}				% To edit margins and their format
+\usepackage[english]{babel} 		% language
+\usepackage{indentfirst}			% First paragraph of each section / subsection
+\usepackage[linktocpage]{hyperref}	% References inside the document and hyperrefs out of it
+\usepackage{url}					% url colors and so
+\hypersetup{colorlinks=true, urlcolor=blue}
+\usepackage{graphicx}				% to include images, Gull page: http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+\usepackage[export]{adjustbox} 		% Images layout (e.g. lets you put right, left in the includegraphix)
+\usepackage{listings}				% Show code
+\usepackage{fancyhdr}				% Headers y footers
+\usepackage{multicol}				% http://stackoverflow.com/questions/1491717/how-to-display-a-content-in-two-column-layout-in-latex
+\usepackage{blindtext}				% For the cool paragraph (Enter after the paragraph section)
+\usepackage{textcomp}
+\usepackage{bussproofs}
+\usepackage{enumitem} 				% To enum with letters and other things
+\usepackage{leftidx} 				% left superindices
+\usepackage{euscript}				% Fancy A and S for symmetry groups (among other things)
+\usepackage{dsfont}
+
+% Math packages
+\usepackage{amsmath}		% General maths
+\usepackage{amsthm}			% theorems, propositions...
+\usepackage{amssymb}		% symbols, arrows...
+\usepackage{amsrefs}		% Automatically formatted bibliography
+\usepackage{mathrsfs}		% Very flamboyant letters
+%\usepackage{stmaryrd} 	% Square brackets for semantics
+\usepackage{bussproofs}
+
+\usepackage{xparse}
+
+\usepackage{color}
+% Colors 
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.8,0.8,0.8}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+%Others
+\usepackage{nag} 					% Warning for deprecated methods
+
+% Document style
+\geometry{margin=3cm}					% 
+\geometry{a4paper}						%
+%\setlength{\parindent}{1.5em}			% First line indentation
+\setlength{\parskip}{0.5\baselineskip}	% Paragraph separation
+\setcounter{tocdepth}{2}				% Table of contents until subsection
+
+% amsthm style definitions
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lemma}[thm]{Lemma}
+\newtheorem{condition}[thm]{Condition}
+\newtheorem{corol}[thm]{Corollary}
+
+\newtheorem{tma}{Teorema}[section]
+\newtheorem{prob}[thm]{Problem}
+\newtheorem{lema}[tma]{Lema}
+\newtheorem{corolario}[tma]{Corolario}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem*{exer}{Exercise}
+\newtheorem{pr}{Proof}
+\newtheorem{defi}[thm]{Definition}
+
+\newtheorem{ejem}{Ejemplo}
+\newtheorem{obs}{Observación} 
+\newtheorem*{ejer}{Ejercicio}
+\newtheorem{demo}{Demostración}
+\newtheorem{definicion}[thm]{Definición}
+
+% Tikz's shit
+\usepackage{tikz}			% To draw cats automatas etc etc
+\usetikzlibrary{automata} 	% 
+\usetikzlibrary{arrows} 	% Different types of arrows (e.g. inclusion)
+
+\usetikzlibrary[shapes.arrows]
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc}
+\usetikzlibrary{intersections}
+\usetikzlibrary{fadings}
+\usetikzlibrary{decorations.footprints}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.callouts}
+\usetikzlibrary{fit}
+
+% Tikz Settings
+\tikzset{->, >=stealth', shorten >=1pt, auto, node distance=1cm, semithick, baseline=(current bounding box.center)}
+
+% Listing	
+\lstset{
+  columns=fullflexible,
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  %deletekeywords={...},            % if you want to delete keywords from the given language
+  inputencoding=utf8,
+  %escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  literate= {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1
+			{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {Ñ}{{\~N}}1
+			{_}{{\_}}1 {^}{{\textasciicircum}}1,
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=C++,                 % the language of the code
+  morekeywords={ll,ii,vi,vii,vvi,vll,mii,ld,point,vect,line,circle,polygon, each},
+            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=4,                       % sets default tabsize to 4 spaces
+  %title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  texcl=true,
+  morecomment=[l][basicstyle]{http://}
+}
+
+% Config Headers y footers
+%\pagestyle{fancy}
+%\fancyhf{}
+%\renewcommand{\sectionmark}[1]{\markright{#1}{}}		% Stop showing section numbers in the header
+%\renewcommand{\subsectionmark}[1]{\markright{#1}{}}	% Stop showing subsection numberless in the header
+%\renewcommand{\subsubsectionmark}[1]{\markright{#1}{}}	% Stop showing subsubsection numberless in the header
+
+% Cool Paragraph
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{0ex}%
+   {-3.25ex plus -1ex minus -0.2ex}%
+   {1ex plus 0.2ex}%
+   {\normalfont\normalsize\bfseries}}
+\makeatother
+
+\renewcommand{\baselinestretch}{1.3}
+
+% Config caption names:
+\renewcommand{\lstlistingname}{Algorithm}
+
+% Usage: \circled{1}[\leq]
+\newcommand*\circledaux[1]{\tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=0.8pt] (char) {#1};}}
+
+\NewDocumentCommand{\circled}{ m o }{%
+    \IfNoValueTF{#2}{ \circledaux{#1} }{ \stackrel{\circledaux{#1}}{#2} }%
+}
+
+
+%\rhead{\fancyplain{}{}} % predefined ()
+%\lhead{\fancyplain{}{\rightmark }} % 1. sectionname, 1.1 subsection name etc
+%\cfoot{\fancyplain{}{\thepage}}
+
+% Totally necessary: always writes correctly epsilon and phi
+\let\temp\phi
+\let\phi\varphi
+\let\varphi\temp
+\let\temp\epsilon
+\let\epsilon\varepsilon
+\let\varepsilon\temp
+\renewcommand{\star}{\ast}
+
+% My definitions
+\newcommand{\Ss}{{\EuScript S}}
+\newcommand{\Aa}{{\EuScript A}}
+\newcommand{\Ab}{\text{Ab}}
+
+
+\newcommand{\x}{{\tt x}} \newcommand{\y}{{\tt y}}
+\newcommand{\z}{{\tt z}} \renewcommand{\t}{{\tt t}}
+\newcommand{\s}{{\tt s}} \newcommand{\ww}{{\tt w}}
+\newcommand{\uu}{{\tt u}} 
+\newcommand{\Var}[1]{\text{Var}\left[#1\right]} 
+\newcommand{\Cov}[1]{\text{Cov}\left[#1\right]} 
+\renewcommand{\P}[1]{\mathbb{P}\left[#1\right]} 
+\newcommand{\Vart}{\text{Var}} 
+\newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]} 
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\Z}{\mathbb{Z}} 
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\pa}[1]{\left( #1\right)} 
+\newcommand{\norm}[1]{\left\| #1 \right\|} 
+\newcommand{\abs}[1]{\left| #1 \right|} 
+%\renewcommand{\dot}[1]{\left\langle #1\right\rangle} 
+\renewcommand{\L}{\mathscr{L}} 
+\newcommand{\dirich}[1]{\mathcal{E}\left( #1 \right)} 
+\newcommand{\grad}{\nabla} 
+\renewcommand{\exp}[1]{\text{exp}\left(#1\right)} 
+\newcommand{\Ent}[1]{\text{Ent}\left[#1\right]} 
+\newcommand{\Entt}{\text{Ent}} 
+\newcommand{\Lip}{\text{Lip}} 
+\newcommand{\diam}[1]{\text{diam}\left(#1\right)} 
+
+\newcommand{\one}[1]{\mathds{1}} 
+\newcommand{\ip}[2]{\left\langle{#1},{#2}\right\rangle}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Rules
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}	% Title's rule
+
+\renewcommand{\arraystretch}{1.5} % Space between rows in tabular
+\usepackage{multirow}
+
+\usepackage{xcolor}
+\usepackage[framemethod=tikz]{mdframed}
+
+\definecolor{cccolor}{rgb}{.67,.7,.67}
+
+
+\usepackage{mdframed}
+\usetikzlibrary{shadows}
+\newmdtheoremenv[shadow=true, shadowsize=5pt]{boxedthm}{Theorem} %TODO shared counter + italic font
+
+
+
+% Wrapper for pseudocode
+\usepackage{algorithm}
+% Pseudocode
+\usepackage[noend]{algpseudocode}% https://tex.stackexchange.com/questions/177025/hyperref-cleveref-and-algpseudocode-same-identifier-warning
+
+% PseudoCode
+\newcommand*\var{\mathit}                   % Variables in pseudocode
+\newcommand*\fn{\operatorname}              % Functions in pseudocode
+\newcommand{\code}{\texttt}                 % Inline Code
+
+\makeatletter
+\newcounter{algorithmicH}% New algorithmic-like hyperref counter
+\let\oldalgorithmic\algorithmic
+\renewcommand{\algorithmic}{%
+  \stepcounter{algorithmicH}% Step counter
+  \oldalgorithmic}% Do what was always done with algorithmic environment
+\renewcommand{\theHALG@line}{ALG@line.\thealgorithmicH.\arabic{ALG@line}}
+\makeatother
+
+\iffalse
+    \begin{algorithm}[!htp]
+      \caption{Rejection Sampling}\label{lst:rej_samp}
+      \begin{algorithmic}[1]
+        \Procedure{$\operatorname{rejection\_sampling}$}{$f, g, M$}
+                    \While{\code{true}}
+                        \State $x \gets $ \code{sample}$\pa{g}$
+                        \State $\var{accept} \gets \frac{f(x)}{Mg(x)}$
+                        \If{\code{sample}$\pa{\mathcal{U}(0,1)} < \var{accept}$}
+                            \State \Return $x$ \Comment{Accept $x$}
+                        \EndIf
+                    \EndWhile
+        \EndProcedure
+      \end{algorithmic}
+    \end{algorithm}
+\fi
+
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.5\linewidth}
+\setlength{\epigraphrule}{0pt}
+\renewcommand*{\textflush}{flushright}
+\renewcommand*{\epigraphsize}{\normalsize\itshape}
+
+ \usepackage[capitalise,nameinlink,noabbrev]{cleveref} % Cite with \cref or \Cref so the name of the object (Theorem, Proposition, etc.) is written automatically
+
+% Customized sections: http://tex.stackexchange.com/questions/136527/section-numbering-without-numbers/136541#136541
+
+%\usepackage{titlesec}
+%\titlelabel{\thetitle.\enspace}
+%\titleformat{\section}
+%    {\normalsize\bfseries\centering}    % The style of the section title
+%    {}                                  % a prefix
+%    {0pt}                               % How much space exists between the prefix and the title
+%    {Question \thesection}           % How the section is represented
+%    %{Section \thesection:\quad}    % How the section is represented
+%
+%% Starred variant
+%\titleformat{name=\section,numberless}
+%  {\normalfont\Large\bfseries}
+%  {}
+%  {0pt}
+%  {}
+
+% Graphics
+
+
+%================================================================================
+% Comments
+%================================================================================
+\iffalse
+    
+% Align
+\begin{align*} 
+ \begin{aligned}
+      i &= i \\
+        &= i \\
+   \end{aligned}
+\end{align*}
+
+% Stack things
+\stackrel{?}{<}
+
+% Graphics
+\begin{figure}[h!]
+\centering
+        \includegraphics[scale=0.1]{1} 
+\caption{SGD adaptation}
+\end{figure}
+
+\fi
+
+\title{}
+\date{}
+\author{}
+
+
+
+\begin{document}
+
+\section{Gradient Descent Finds Global Minima of Deep Neural Networks}
+\subsection*{Definitions}
+\begin{itemize}
+\item $m$: Width of each layer of the neural network.
+\item $n$: number of samples.
+\item $d$: dimension of training data.
+\item $H$: number of layers of the neural network.
+\item $\eta$: learning rate for gradient descent.
+\item $\theta$: parameters of the neural network. 
+\item $\theta(k)$: parameters of the neural network after $k$ iterations of training with gradient descent. $\theta(0)$ are the parameters at initialization (iid $N(0,1)$).
+\item $\sigma$: Activation function. It is Lipschitz, smooth, analytical and not a polynomial.
+\item $(\mathbf{x}_i, y_i) \in \R^d\times\R, 1\leq i\leq n$: training data and corresponding labels. In this work, it is assumed that no two input points are parallel, i.e. $x_i \nparallel x_j$ for $i\neq j$.
+\item $\mathbf{y} = (y_1,\dots, y_n) \in \R^n$: vector of labels.
+\item $\mathbf{W}^{(1)} \in \R^{m\times d}, \mathbf{W}^{(h)}\in \R^{m\times m} 2\leq h\leq H, \mathbf{a}\in \R^m$ are, respectively, the first layer, the $h$ layer and the output layer of the neural network respectively. We also use $\mathbf{W}^{(h)}(k)$, $\mathbf{a}(k)$ to denote the layers after $k$ iterations of training with GD.
+\item $c_{\sigma}=\left(\mathbb{E}_{x \sim N(0,1)}\left[\sigma(x)^{2}\right]\right)^{-1}$ is a scaling factor to normalize the input in the initialization phase of the neural network.
+\item \textbf{Fully-connected neural network (NN)}. Let $\mathbf{x}^{(0)}$ be an input of the NN. Then the fully-connected neural network function $f$ is defined recursively in the following way:
+\begin{align*} 
+\begin{aligned}
+     \mathbf{x}^{(h)} &= \sqrt{\frac{c_\sigma}{m}} \sigma\left(\mathbf{W}^{(h)} \mathbf{x}^{(h-1)}\right), 1 \leq h \leq H \\
+     f(\mathbf{x}, \theta) &= \mathbf{a}^\top \mathbf{x}^{(H)}.
+\end{aligned}
+\end{align*}
+where $c_{\sigma}=\left(\mathbb{E}_{x \sim N(0,1)}\left[\sigma(x)^{2}\right]\right)^{-1}$ is the scaling defined above.
+
+\item \textbf{Loss function ($\ell_2$)}. $L(\theta) = \frac{1}{2}\sum_{i=1}^n (f(\theta,\mathbf{x}_i)-y_i)^2$.
+\item $u_i(k) = f(\theta(k), \mathbf{x}_i)$. Output of the NN for sample $i$ after $k$ iterations of GD.
+\item $\mathbf{u}(k) = (u_1(k), \dots, u_n(k))^\top \in \R^n$. 
+\item $\mathbf{G}^{(h)}(k) \in \R^{n\times n}$, $1\leq h \leq H+1$ defined as $\mathbf{G}_{ij}^{(h)}(k) = \left\langle\frac{\partial u_{i}(k)}{\partial \mathbf{W}^{(h)}(k)}, \frac{\partial u_{j}(k)}{\partial \mathbf{W}^{(h)}(k)}\right\rangle$ for $h=1, \ldots, H$ and $\mathbf{G}_{i j}^{(H+1)}(k)=\left\langle\frac{\partial u_{i}(k)}{\partial \mathbf{a}(k)}, \frac{\partial u_{j}(k)}{\partial \mathbf{a}(k)}\right\rangle$. So that the following definition can be used to express the dynamics of the NN.
+\item $\mathbf{G}(k)$ defined as $\mathbf{G}_{ij}(k) = \sum_{h=1}^{H+1} \mathbf{G}_{ij}^{(h)}(k)$. Note that for the infinite NTK the function behaves as its linearization and it holds
+\[
+\mathbf{y}-\mathbf{u}(k+1)=(\mathbf{I}-\eta K)(\mathbf{y}-\mathbf{u}(k)),
+\] 
+We want to argue that 
+\[
+    \mathbf{y}-\mathbf{u}(k+1)\approx(\mathbf{I}-\eta \mathbf{G}(k))(\mathbf{y}-\mathbf{u}(k)),
+\]
+in a precise way. Note the gradient descent update is
+\begin{align*} 
+\begin{aligned} 
+    \mathbf{W}^{(h)}(k) &=\mathbf{W}^{(h)}(k-1)-\eta \frac{\partial L(\theta(k-1))}{\partial \mathbf{W}^{(h)}(k-1)}, \\
+    \mathbf{a}(k) &=\mathbf{a}(k-1)-\eta \frac{\partial L(\theta(k-1))}{\partial \mathbf{a}(k-1)}. 
+\end{aligned}
+\end{align*}
+
+\begin{remark}
+    Each entry of $\mathbf{G}^{(h)}(k)$  is an inner product and thus $\mathbf{G}^{(h)}(k)$ is a PSD matrix.  Furthermore, if there exists one $h\in[H]$ such that $\mathbf{G}^{(h)}(k)$ is strictly positive definite, then if one chooses the step size $\eta$ to be sufficiently small, the loss decreases at the $k-th $ iteration according the analysis of power method, which presents linear convergence rate. In the paper they focus on $\mathbf{G}^{(H)}(k)$ only.
+\end{remark}
+
+\item $\mathbf{K}^{(h)}$ is a fixed matrix which depends on the input data, neural network architecture (including the activation function but does not depend on the parameters $\theta$. It will be shown that $\mathbf{G}^{(H)}(0)$ at initialization is close to $\mathbf{K}^{(H)}$, that $\mathbf{G}^{(H)}(k)$ is close to $\mathbf{G}^{(H)}(0)$ and that $\mathbf{K}^{(H)}$ is positive semidefinite. These three things imply linear convergence of gradient descent by proving that the minimum eigenvalue of $\mathbf{G}^{(H)}(k)$ is bounded below by a constant independent of $k$. The definition of these matrices for the fully neural network connected the following: 
+ \begin{align} 
+\begin{aligned} 
+    \mathbf{K}_{i j}^{(0)} &=\left\langle\mathbf{x}_{i}, \mathbf{x}_{j}\right\rangle \\ \mathbf{A}_{i j}^{(h)} &=\left(\begin{array}{cc}{\mathbf{K}_{i i}^{(h-1)}} & {\mathbf{K}_{i j}^{(h-1)}} \\ {\mathbf{K}_{j i}^{(h-1)}} & {\mathbf{K}_{j j}^{(h-1)}}\end{array}\right) \\ \mathbf{K}_{i j}^{(h)} &=c_{\sigma} \mathbb{E}_{(u, v)^{\top} \sim N\left(\mathbf{0}, \mathbf{A}_{i j}^{(h)}\right)}[\sigma(u) \sigma(v)] \\ \mathbf{K}_{i j}^{(H)} &=c_{\sigma} \mathbf{K}_{i j}^{(H-1)} \mathbb{E}_{(u, v)^{\top} \sim N\left(\mathbf{0}, \mathbf{A}_{i j}^{(H-1)}\right)}\left[\sigma^{\prime}(u) \sigma^{\prime}(v)\right] 
+\end{aligned}
+\end{align}
+
+\item  $u_{i}^{\prime}(\theta) = \frac{\partial u_{i}}{\partial \theta},  u_{i}^{(h)}(\theta) = \frac{\partial u_{i}}{\partial \mathbf{W}^{(h)}},  u_{i}^{(a)}(\theta) = \frac{\partial u_{i}}{\partial \mathbf{a}}, L^{\prime}(\theta)=\frac{\partial L(\theta)}{\partial \theta},  L^{(h)}(\mathbf{W}^{(h)})=\frac{\partial L(\theta)}{\partial \mathbf{W}^{(h)}},  L^{(a)}(\theta) = \frac{\partial L}{\partial \mathbf{a}}$.
+
+\end{itemize}
+
+\subsection*{Results}
+
+The paper proves linear global convergence, i.e. to zero training error of some deep networks architectures with high probability with respect to the initialization assuming the networks are sufficiently overparametrized and that $\ell_2$ loss is used. Note the learning rate has to be quite small, much more that what would be used in practice. Another caveat is that overparametrization depends on $\lambda_0$ the minimum eigenvalue of $K^(H)$ which is proved to be positive but it is not provided any kind of guarantee for $\lambda_0$ not being arbitrarily small in some cases. 
+
+The results of the paper are for fully-connected NNs, which needs exponential overparametrization with depth, for ResNets, in which this dependence with depth drops to a polynomial, and convolutional ResNets. In these notes we focus on the fully-connected architecture for simplicity. The arguments are quite similar across architectures.
+
+\begin{thm}[Convergence Rate of Gradient Descent for Deep Fully-connected Neural Networks]\label{thm:convergence}
+Assume for all $i \in [n]$, $\norm{\mathbf{x}_i}_2 = 1$, $\abs{y_i} = O(1)$  and the number of hidden nodes per layer 
+\begin{align*}
+m=\Omega\left(2^{O(H)}\max\left\{
+\frac{n^4}{\lambda_{\min}^4\left(\mathbf{K}^{(H)}\right)},\frac{n}{\delta}, \frac{n^2\log(\frac{Hn}{\delta})}{\lambda_{\min}^2\left(\mathbf{K}^{(H)}\right)}
+\right\}\right)
+\end{align*}
+If we set the step size 
+\[\eta = O\left(\frac{\lambda_{\min}\left(\mathbf{K}^{(H)}\right)}{n^22^{O(H)}}\right),\] 
+then with probability at least $1-\delta$ over the random initialization, for $k=1,2,\ldots$, the loss at each iteration satisfies
+\begin{align*}
+L(\theta(k))\le \left(1-\frac{\eta \lambda _{\min}\left(\mathbf{K}^{(H)}\right)}{2}\right)^{k}L(\theta(0)).
+\end{align*}
+\end{thm}
+
+In order to prove the theorem, we introduce a few lemmas. First, we state the condition of the theorem we want to prove for all $k$ with high probability, where $\lambda_0$ is the minimum eigenvalue of $\mathbf{K}^{(H)}$.
+
+\begin{condition}\label{cond:linear_converge}
+	At the $k$-th iteration, we have \begin{align*}
+	\norm{\mathbf{y}-\mathbf{u}(k)}_2^2 \le (1-\frac{\eta \lambda_0}{2})^{k} \norm{\mathbf{y}-\mathbf{u}(0)}_2^2.
+	\end{align*}
+\end{condition}
+
+
+\begin{lemma}[Initialization norm] If $\sigma(\cdot)$ is $L$-Lipschitz and $m= \Omega\left(\frac{nHg_c(H)^2}{\delta}\right)$ with $C = c_\sigma L(2\abs{\sigma(0)} \sqrt{\frac{2}{\pi}}+2L)$, then with probability at least $1-\delta$ over random initialization, for every $h \in [H]$ and $i \in [n]$ we have
+\[
+\frac{1}{c_{x, 0}} \leq\left\|\mathbf{x}_{i}^{(h)}(0)\right\|_{2} \leq c_{x, 0},
+\]
+where $c_{x,0}=2$. 
+\end{lemma}   
+A similar lemma can be proven for different architectures with a different value of $c_{x,0}$. This lemma is needed in the proofs of Lemmas \ref{lemma:activations_stability} and \ref{lemma:eigenvalue_stability_while_training}.
+
+\begin{lemma}[Least Eigenvalue at the Initialization] If $m= \Omega\left(\frac{n^2\log(Hn/\delta)2^{O(H)}}{\lambda_0^2}\right)$ we have
+\[
+    \lambda_{\textup{min}}(\mathbf{G}^{(H)}(0)) \geq \frac{3}{4}\lambda_0.
+\]
+\end{lemma}
+
+\begin{lemma}[Least Eigenvalue at the Initialization]\label{lemma:activations_stability}
+	Suppose for every $h\in[H]$, $\norm{\mathbf{W}^{(h)}(0)}_2 \le c_{w,0}\sqrt{m}$, $\norm{\mathbf{x}^{(h)}(0)}_2 \le c_{x,0}$ and $\norm{\mathbf{W}^{(h)}(k)-\mathbf{W}^{(h)}(0)}_F \le \sqrt{m} R$ for some constant $c_{w,0},c_{x,0} > 0$ and $R \le c_{w,0}$.
+	If $\sigma(\cdot)$ is $L-$Lipschitz, we have \begin{align*}
+	\norm{\mathbf{x}^{(h)}(k)-\mathbf{x}^{(h)}(0)}_2 \le \sqrt{c_{\sigma}}Lc_{x,0}g_{c_x}(h)R
+	\end{align*} where $c_x=2\sqrt{c_{\sigma}}Lc_{w,0}$.
+\end{lemma}
+
+\begin{lemma} \label{lemma:eigenvalue_stability_while_training}    	Suppose $\sigma(\cdot)$ is $L-$Lipschitz and $\beta-$smooth. Suppose for $h\in[H]$, $\norm{\mathbf{W}^{(h)}(0)}_2\le c_{w,0}\sqrt{m}$, $\norm{\mathbf{a}(0)}_2\le a_{2,0}\sqrt{m}$, $\norm{\mathbf{a}(0)}_4\le a_{4,0}m^{1/4}$ , $\frac{1}{c_{x,0}}\le\norm{\mathbf{x}^{(h)}(0)}_2 \le c_{x,0}$,  if $\norm{\mathbf{W}^{(h)}(k)-\mathbf{W}^{(h)}(0)}_F$, $\norm{\mathbf{a}(k)-\mathbf{a}(0)}_2 \le \sqrt{m}R$ where $R \le c g_{c_x}(H)^{-1}\lambda_0n^{-1}$ and $R\le c g_{c_x}(H)^{-1}$ for some small constant $c$ and $c_x = 2\sqrt{c_{\sigma}}Lc_{w,0}$, we have \begin{align*}
+	\norm{\mathbf{G}^{(H)}(k) - \mathbf{G}^{(H)}(0)}_2 \le \frac{\lambda_0}{4}.
+	\end{align*}
+\end{lemma}
+The assumption $\norm{W^{(h)}(0)}_2 \leq c_{w,0}\sqrt{m}$ is a well know fact of gaussian initialized matrices and the bounds on $\norm{a(0)}_2$ and $\norm{a(0)}_4$ can be proved using standard concentration inequalities. $a_{2,0}$ and $a_{4,0}$ are universal constants.
+
+\begin{lemma} \label{lemma:weights_stability}
+	If Condition~\ref{cond:linear_converge} holds for $k'=1,\ldots,k$, we have for any $s =1,\ldots,k+1$
+	\begin{align*}
+	&\norm{\mathbf{W}^{(h)}(s)-\mathbf{W}^{(h)}(0)}_F, \norm{\mathbf{a}(s)-\mathbf{a}(0)}_2 \le  R'\sqrt{m}\\
+	&\norm{\mathbf{W}^{(h)}(s)-\mathbf{W}^{(h)}(s-1)}_F,  \norm{\mathbf{a}(s)-\mathbf{a}(s-1)}_2\le \eta Q'(s-1)
+	\end{align*}where $R'=\frac{16c_{x,0}a_{2,0}\left(c_x\right)^H \sqrt{n} \norm{\mathbf{y}-\mathbf{u}(0)}_2}{\lambda_0\sqrt{m}}  \le cg_{c_x}(H)^{-1}$ for some small constant $c$ with $c_x=\max\{2\sqrt{c_{\sigma}}Lc_{w,0},1\}$ and $ Q'(s)= 4c_{x,0}a_{2,0}\left(c_x\right)^{H}\sqrt{n} \norm{\mathbf{y}-\mathbf{u}(s)}_2$
+
+\end{lemma}
+
+\begin{lemma}\label{lemma:small_snd_order_term}
+    Let 
+    \[
+        I_2^i(k) = \int_{s=0}^{\eta}\left\langle L^{\prime}(\theta(k)), u_{i}^{\prime}(\theta(k))-u_{i}^{\prime}\left(\theta(k)-s L^{\prime}(\theta(k))\right)\right\rangle d s
+    \]
+    and $\mathbf{I}_2(k) = (I_2^1(k), \dots, I_2^n(k))^\top$.
+If Condition~\ref{cond:linear_converge} holds for $k'=1,\ldots,k$, suppose $\eta\le c\lambda_0\left(n^{2}H^2(c_x)^{3H}g_{2c_x}(H)\right)^{-1}$ for some small constant $c$, we have \begin{align*}
+	\norm{\mathbf{I}_2(k)}_2 \le \frac{1}{8}\eta \lambda_0 \norm{\mathbf{y}-\mathbf{u}(k)}_2.
+\end{align*}
+\end{lemma}
+
+\begin{lemma}\label{lemma:small_snd_order_term_2}
+If Condition~\ref{cond:linear_converge} holds for $k'=1,\ldots,k$, suppose $\eta\le c\lambda_0\left(n^{2}H^2(c_x)^{2H}g_{2c_x}(H)\right)^{-1}$ for some small constant $c$, then we have
+$\norm{\mathbf{u}(k+1)-\mathbf{u}(k)}_2^2\le \frac{1}{8}\eta \lambda_0 \norm{\mathbf{y}-\mathbf{u}(k)}_2^2$.
+
+\end{lemma}
+
+\begin{proof}[Proof of Theorem \ref{thm:convergence}]
+    We want to prove Condition \ref{cond:linear_converge} for all $k$. We proceed by induction. Note that
+    \begin{equation} \label{eq:decomposition}
+        \begin{aligned} &\|\mathbf{y}-\mathbf{u}(k+1)\|_{2}^{2} \\=&\|\mathbf{y}-\mathbf{u}(k)-(\mathbf{u}(k+1)-\mathbf{u}(k))\|_{2}^{2} \\=&\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2}-2(\mathbf{y}-\mathbf{u}(k))^{\top}(\mathbf{u}(k+1)-\mathbf{u}(k))+\|\mathbf{u}(k+1)-\mathbf{u}(k)\|_{2}^{2} \end{aligned}
+    \end{equation}
+
+    We need the second summand to be greater in absolute value than the third one for the loss to decrease. Intuitively this is true because by a Taylor expansion of $\mathbf{u}(k+1)-\mathbf{u}(k)$ with respect to $\eta$ we have that the second summand is of order $\eta$ plus second order terms and the third summand is of order $\eta^2$, so for $\eta$ small enough we can proof that the loss decreases. Then we have to prove that the first order term in $\eta$ is proportional to the constant of \ref{cond:linear_converge}. Expanding one coordinate of  $\mathbf{u}(k+1)-\mathbf{u}(k)$ by Taylor we obtain
+\begin{align*} 
+ \begin{aligned}
+     \mathbf{u}_i(k+1)-\mathbf{u}_i(k) = \left( -\eta\left\langle L^{\prime}(\theta(k)), u_{i}^{\prime}(\theta(k))\right\rangle \right) + I_2^i(k)
+   \end{aligned}
+\end{align*}
+where, following the notation of the paper we denote $I_2^i(k)$ the second order term on $\eta$. It is equal to
+\[
+   I_2^i(k) = \int_{s=0}^{\eta}\left\langle L^{\prime}(\theta(k)), u_{i}^{\prime}(\theta(k))-u_{i}^{\prime}\left(\theta(k)-s L^{\prime}(\theta(k))\right)\right\rangle \mathrm{d}s.
+\] 
+But let's focus on the first term, which we denote $I_1^i(k)$, and let $\mathbf{I}_1(k) =(I_1^1(k)), \dots, (I_1^n(k))^\top $ and $\mathbf{I}_2(k) =(I_2^1(k)), \dots, (I_2^n(k))^\top $. We have 
+\begin{align*} 
+ \begin{aligned} I_{1}^{i} &=-\eta\left\langle L^{\prime}(\theta(k)), u_{i}^{\prime}(\theta(k))\right\rangle \\ &=-\eta \sum_{j=1}^{n}\left(u_{j}-y_{j}\right)\left\langle u_{j}^{\prime}(\theta(k)), u_{i}^{\prime}(\theta(k))\right\rangle \\ & \triangleq-\eta \sum_{j=1}^{n}\left(u_{j}-y_{j}\right) \sum_{h=1}^{H+1} \mathbf{G}_{i j}^{(h)}(k) \end{aligned}
+\end{align*}
+or in matricial form
+\[
+\mathbf{I}_{1}(k)=-\eta \mathbf{G}(k)(\mathbf{u}(k)-\mathbf{y})
+\] 
+Now observe that 
+\begin{align}  \label{ineq:bound_Gh}
+\begin{aligned}(\mathbf{y}-\mathbf{u}(k))^{\top} \mathbf{I}_{1}(k) &=\eta(\mathbf{y}-\mathbf{u}(k))^{\top} \mathbf{G}(k)(\mathbf{y}-\mathbf{u}(k)) \\ & \geq \lambda_{\min }(\mathbf{G}(k))\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2} \\ & \geq \lambda_{\min }\left(\mathbf{G}^{(H)}(k)\right)\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2} \end{aligned}
+\end{align}
+
+    We will only need to look at $\mathbf{G}^{(H)}$ which has the following form
+\[
+\mathbf{G}_{i, j}^{(H)}(k)=\left(\mathbf{x}_{i}^{(H-1)}(k)\right)^{\top} \mathbf{x}_{j}^{(H-1)}(k) \cdot \frac{c_{\sigma}}{m} \sum_{r=1}^{m} a_{r}^{2} \sigma^{\prime}\left(\left(\theta_{r}^{(H)}(k)\right)^{\top} \mathbf{x}_{i}^{(H-1)}(k)\right) \sigma^{\prime}\left(\left(\theta_{r}^{(H)}(k)\right)^{\top} \mathbf{x}_{j}^{(H-1)}(k)\right)
+\] 
+
+In principle one could look at $\mathbf{G}(k)$ but in the paper they do not do that. The analysis becomes simple if only $\mathbf{G}^{(H)}$ is used.
+
+So putting all together we have
+\begin{align*} 
+\begin{aligned} &\|\mathbf{y}-\mathbf{u}(k+1)\|_{2}^{2} \\
+    \circled{1}[\leq] &\left(1-\eta \lambda_{\min }\left(\mathbf{G}^{(H)}(k)\right)\right)\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2}-2(\mathbf{y}-\mathbf{u}(k))^{\top} \mathbf{I}_{2}(k)+\|\mathbf{u}(k+1)-\mathbf{u}(k)\|_{2}^{2} \\
+    \circled{2}[\leq] & \left(1-\eta \lambda_{0}\right)\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2}-2(\mathbf{y}-\mathbf{u}(k))^{\top} \mathbf{I}_{2}+\|\mathbf{u}(k+1)-\mathbf{u}(k)\|_{2}^{2} \\
+    \circled{3}[\leq] &\left(1-\frac{\eta \lambda_{0}}{2}\right)\|\mathbf{y}-\mathbf{u}(k)\|_{2}^{2}.
+\end{aligned}
+\begin{aligned}\end{aligned}
+\end{align*}
+
+$\circled{1}$ uses Equation \eqref{eq:decomposition} and inequality \eqref{ineq:bound_Gh}. \circled{3} uses Lemmas \ref{lemma:small_snd_order_term} and \ref{lemma:small_snd_order_term_2}. For $\circled{2}$, by induction hypothesis, using Lemma \ref{lemma:weights_stability} we obtain
+\[
+\begin{aligned}\left\|\mathbf{W}^{(h)}(k)-\mathbf{W}^{(h)}(0)\right\|_{F} & \leq R^{\prime} \sqrt{m} \\ & \leq R \sqrt{m} \end{aligned}
+\]
+for the choice of $m$ in the theorem. By Lemma \ref{lemma:eigenvalue_stability_while_training} we get $\lambda_{\min }\left(\mathbf{G}^{(H)}(k)\right) \geq \frac{\lambda_{0}}{2}$.
+
+
+\end{proof}
+
+
+\nocite{*}                 % Include refs not cited
+\bibliography{refs}        %use a bibtex bibliography file refs.bib
+\bibliographystyle{plain}  %use the plain bibliography style
+
+\end{document}
