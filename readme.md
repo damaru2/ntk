@@ -2,6 +2,11 @@ In each category, papers are sorted chronologically.
 
 Papers with a ^ at the beginning of the title form the tentative list for the reading group.
 
+## Schedule
++ 2/08/2019 Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
++ 9/08/2019 Gradient Descent Finds Global Minima of Deep Neural Network.
++ 16/08/2019 Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks + insights from Gradient Descent Provably Optimizes Over-parameterized Neural Networks.
+
 # Neural tangent kernel
 
 [https://www.youtube.com/watch?v=NGon2JyjO6Y]: #
@@ -35,6 +40,11 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + Claims to show a proof that sounds similar to those of Allen-Zhu, Du etc. but not sure what the difference is.
 
 ### Finite results
+
+[https://arxiv.org/abs/1810.02054]: #
++ [~~Gradient Descent Provably Optimizes Over-parameterized Neural Networks~~](./papers/1810.02054.pdf)  -- [link](https://arxiv.org/abs/1810.02054)
+    + 04/10/2018
+    + A preliminar result of Gradient Descent Finds Global Minima of Deep Neural Network (below) but only for two layer neural networks.
 
 [https://arxiv.org/abs/1810.12065]: #
 + [~~On the Convergence Rate of Training Recurrent Neural Networks~~](./papers/1810.12065.pdf)  -- [link](https://arxiv.org/abs/1810.1206)
