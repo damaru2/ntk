@@ -52,6 +52,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 
 [https://arxiv.org/pdf/1811.03804.pdf]: #
 + ^[Gradient Descent Finds Global Minima of Deep Neural Network.](./papers/1811.03804.pdf)  -- [link](https://arxiv.org/pdf/1811.03804.pdf)
+    + [Notes](./papers/du_et_al.pdf)
     + 9/11/2018
     + Du et al 
     + Convergence to global optima whp for GD for \ell_2.
