@@ -6,6 +6,8 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 + 2/08/2019 Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
 + 9/08/2019 Gradient Descent Finds Global Minima of Deep Neural Network.
 + 16/08/2019 Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks + insights from Gradient Descent Provably Optimizes Over-parameterized Neural Networks.
++ 23/08/2019 On Lazy Training in Differentiable Programming
++ 13/09/2019 Generalization bounds of stochastic gradient descent for wide and deep networks
 
 # Neural tangent kernel
 
@@ -27,7 +29,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + It proves positive definiteness of the kernel for certain regimes, thus proving you can optimize to reach a global minimum at a linear rate.
 
 [https://arxiv.org/pdf/1902.06720.pdf]: #
-+ ^[Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pd)
++ ^[Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent](./papers/1902.06720.pdf)  -- [link](https://arxiv.org/pdf/1902.06720.pdf)
     + 02/2019
     + They apparently prove that a finite learning rate is enough for the model to follow NTK dynamics in infinite width limit.
     + Experiments
@@ -38,6 +40,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + 04/2019
     + Shows that NTK work somewhat worse than NNs, but not as much worse as previous work suggested.
     + Claims to show a proof that sounds similar to those of Allen-Zhu, Du etc. but not sure what the difference is.
+
 
 ### Finite results
 
@@ -84,6 +87,12 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + 25/11/2018
     + Results for one hidden layer NNs, generalized linear models and low-rank matrix regression.
 
+[https://arxiv.org/abs/1905.13654.pdf]: #
++ [~~Training Dynamics of Deep Networks using Stochastic Gradient Descent via Neural Tangent Kernel~~](./papers/1905.13654.pdf)  -- [link](https://arxiv.org/abs/1905.13654.pdf)
+    + 06/2019
+    + SGD analyzed from the point of view of Stochastic Differential Equations
+
+
 ### Lazy training
 
 [https://arxiv.org/pdf/1812.07956.pdf ]: #
@@ -112,7 +121,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
     + Theorems are not based on NTKs, but it has experiments showing how generalization for 3-layer NNs is better than for its corresponding NTK.
 
 [https://arxiv.org/pdf/1901.08584.pdf]: #
-+ [Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pd)
++ [Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks](./papers/1901.08584.pdf)  -- [link](https://arxiv.org/pdf/1901.08584.pdf)
     + 01/2019
     + Arora et al
     + "Our work is related to kernel methods, especially recent discoveries of the connection between deep
