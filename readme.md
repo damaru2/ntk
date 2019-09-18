@@ -1,6 +1,8 @@
-In each category, papers are sorted chronologically. 
+This is a list of papers that use the Neural Tangent Kernel (NTK). In each category, papers are sorted chronologically. 
 
 Papers with a ^ at the beginning of the title form the tentative list for the reading group.
+
+We have used [hypothes.is](https://web.hypothes.is/) to some extent, see [this](https://via.hypothes.is/https://arxiv.org/pdf/1806.07572.pdf) for instance. There are notes for a few of the papers, which you can find linked below the relevant papers.
 
 ## Schedule
 + 2/08/2019 Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
@@ -13,7 +15,7 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 
 [https://www.youtube.com/watch?v=NGon2JyjO6Y]: #
 + [Recent Developments in Over-parametrized Neural Networks, Part II](https://www.youtube.com/watch?v=NGon2JyjO6Y)
-    + Interesting, nive overview of a few things, mostly related to optimization and NTK
+    + Interesting, nice overview of a few things, mostly related to optimization and NTK
     + YouTube, Simons institute workshop.
     + Part I is interesting, but take into account that it is about other optimization things for NNs, but not about NTK.
 
@@ -23,8 +25,9 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 
 [https://arxiv.org/pdf/1806.07572.pdf ]: #
 + ^[Neural Tangent Kernel: Convergence and Generalization in Neural Networks ](./papers/1806.07572.pdf)  -- [link](https://arxiv.org/pdf/1806.07572.pdf)
+    + [Notes](./notes/Neural_Tangent_kernels___Jacot_et_al.pdf)
     + 06/2018
-    + Original paper.
+    + Original NTK paper.
     + Exposes the idea of the NTK for the first time, although the proof that the Kernel in the limit is deterministic is done tending the number of neurons of each layer to infinity, layer by layer sequentially.
     + It proves positive definiteness of the kernel for certain regimes, thus proving you can optimize to reach a global minimum at a linear rate.
 
