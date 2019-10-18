@@ -1,0 +1,694 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\setlength{\headheight}{14.0pt}		% Removes fancy header warning (Not sure what it does)
+\usepackage[margin=3cm]{geometry}				% To edit margins and their format
+\usepackage[english]{babel} 		% language
+\usepackage{indentfirst}			% First paragraph of each section / subsection
+\usepackage{listings}				% Show code
+\usepackage{fancyhdr}				% Headers y footers
+\usepackage{multicol}				% http://stackoverflow.com/questions/1491717/how-to-display-a-content-in-two-column-layout-in-latex
+\usepackage{blindtext}				% For the cool paragraph (Enter after the paragraph section)
+\usepackage{textcomp}
+\usepackage{bussproofs}
+\usepackage{enumitem} 				% To enum with letters and other things
+\usepackage{leftidx} 				% left superindices
+\usepackage{euscript}				% Fancy A and S for symmetry groups (among other things)
+\usepackage{dsfont}
+
+
+
+\usepackage{hyperref}
+\usepackage{enumerate}
+%\usepackage{enumitem}
+
+\usepackage{nicefrac}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{bbm}
+
+
+\usepackage{algpseudocode}
+%\usepackage{algorithmic}
+\usepackage{algorithm}
+
+
+%%% DAVID%%%%
+
+% Totally necessary: always writes correctly epsilon
+\let\temp\epsilon
+\let\epsilon\varepsilon
+\let\varepsilon\temp
+\renewcommand{\star}{\ast}
+
+% My definitions
+\newcommand{\Ss}{{\EuScript S}}
+\newcommand{\Aa}{{\EuScript A}}
+\newcommand{\Ab}{\text{Ab}}
+
+
+\newcommand{\x}{{\tt x}} \newcommand{\y}{{\tt y}}
+\newcommand{\z}{{\tt z}} \renewcommand{\t}{{\tt t}}
+\newcommand{\s}{{\tt s}} \newcommand{\ww}{{\tt w}}
+\newcommand{\uu}{{\tt u}} 
+\newcommand{\Var}[1]{\text{Var}\left[#1\right]} 
+\newcommand{\Cov}[1]{\text{Cov}\left[#1\right]} 
+\renewcommand{\P}[1]{\mathbb{P}\left[#1\right]} 
+\newcommand{\Vart}{\text{Var}} 
+\newcommand{\E}[1]{\mathbb{E}\left[ #1 \right]} 
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\Z}{\mathbb{Z}} 
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\pa}[1]{\left( #1\right)} 
+%\newcommand{\norm}[1]{\left\| #1 \right\|} 
+%\newcommand{\abs}[1]{\left| #1 \right|} 
+%\renewcommand{\dot}[1]{\left\langle #1\right\rangle} 
+\renewcommand{\L}{\mathscr{L}} 
+\newcommand{\dirich}[1]{\mathcal{E}\left( #1 \right)} 
+\newcommand{\grad}{\nabla} 
+\renewcommand{\exp}[1]{\text{exp}\left(#1\right)} 
+\newcommand{\Ent}[1]{\text{Ent}\left[#1\right]} 
+\newcommand{\Entt}{\text{Ent}} 
+\newcommand{\Lip}{\text{Lip}} 
+\newcommand{\diam}[1]{\text{diam}\left(#1\right)} 
+
+\newcommand{\one}[1]{\mathds{1}} 
+%\newcommand{\ip}[2]{\left\langle{#1},{#2}\right\rangle}
+
+%%%%%%
+
+\usepackage{amartya_ltx}
+\title{Generelization Guarantees through Low Rank  Jacobian}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+
+\section{Generalization Guarantees For Neural Nets Via Harnessing the Low-Rankness of Jacobian}
+
+
+\subsection*{Definitions and notations.}
+\begin{itemize}
+\item $n$: number of samples.
+\item $d$: dimension of training data.
+\item $K$: Number of classes, dimension of the output.
+\item One hidden layer neural network with the form
+    \[
+    x \mapsto f(x ; W):= V \phi(W x).
+    \] 
+    where $x\in\R^d$, $W\in \R^{k\times d}$, $V\in \R^{K\times k}$ and $\phi$ is an activation function that acts component-wise. Only $W$ is trained for simplicity in this work (but it is outlined how results can be generalized to the case in which $V$ is also trained). We use the shorthand
+    \[
+        f(W) = [f(x_1;W)^\top, \dots, f(x_n;W)^\top]^\top \in \R^{nK}.
+    \] 
+\item $(x_i, y_i) \in \R^d\times\R^K, 1\leq i\leq n$: training data and corresponding labels (one-hot encodings). 
+\item $\eta$: learning rate for gradient descent.
+\item $\theta \in \R^{kd}$: vectorized parameters of the neural network. We will denote $p=kd$.
+\item $\tilde{\theta} \in \R^{\max(Kn,p)}$: parameters of the linearized problem (more on this below).
+\item $\bar{\theta} \in \R^{\max(Kn,p)}$: $\theta$ (possibly) padded with $x$ zeroes so it has the same length as $\tilde{\theta}$.
+\item $y = (y_1^\top,\dots, y_n^\top)^\top \in \R^{nK}$: concatenation of labels.
+\item The loss function used in the optimization is the $\ell_2$ loss:
+    \[
+        \mathcal{L}(W) = \frac{1}{2} \norm{f(W)-y}_2^2.
+    \] 
+\item The optimization algorithm is gradient descent, starting from an initialization $W_0$:
+    \[
+        W_{\tau+1}=W_{\tau}-\eta \nabla \mathcal{L}\left(W_{\tau}\right).
+    \] 
+\item (Remember we use $\theta\in\R^{p}$ for the vectorization of $W$). We use
+    \[
+        \mathcal{J}(\theta) = \frac{\partial f(\theta)}{\partial \theta}  \in \R^{Kn\times p}\text{ so that } \theta_{\tau+1} = \theta_\tau - \eta \nabla \mathcal{L}(\theta_\tau) \text{ and } \nabla\mathcal{L}(\theta) = \mathcal{J}(\theta)^\top r(\theta).
+    \] 
+    where we define the residual $r(\theta)$ as $f(\theta)- y$.
+\item \textbf{Information and Nuisance spaces}: For a matrix $J \in \R^{nK\times p}$ (that will typically be a Jacobian), consider its singular value decomposition
+    \[
+    J=\sum_{s=1}^{n K} \lambda_{s} u_{s} v_{s}^{T}=U \operatorname{diag}\left(\lambda_{1}, \lambda_{2}, \ldots, \lambda_{n K}\right) V^{T}
+    \] 
+    with $\lambda_{1} \geq \lambda_{2} \geq \ldots \geq \lambda_{n K}$ and $u_s \in \R^{Kn}$, $v_s \in \R^p$ being the left and right singular vectors respectivelyi For a spectrum cutoff $0<\alpha<\lambda_1$ let $c = c(\alpha)$ denote the index of the smallest singular value above $\alpha$. Then the information and nuisance space associated with $J$ are defined as
+    \[
+\mathcal{I}:=\operatorname{span}\left(\left\{\boldsymbol{u}_{s}\right\}_{s=1}^{c}\right) \text { and } \mathcal{N}:=\operatorname{span}\left(\left\{\boldsymbol{u}_{s}\right\}_{s=c+1}^{K n}\right).
+    \] 
+\item Multiclass Neural Tangent Kernel (M-NTK). Let $w \sim \mathcal{N}(0, I_d)$. Consider $n$ input data points $x_1, \dots, x_n \in \R^d$ aggregated in $X \in \R^{n\times d}$ and activation $\phi$ (it is assumed to be Lipschitz and smooth but the authors argue that they assume it for simplicity and outline how the result could be extended to use relu as activation). We define the multiclass kernel 
+    \[
+    \Sigma(X):=I_{K} \otimes \mathbb{E}\left[\left(\phi^{\prime}(X w) \phi^{\prime}(X w)^{T}\right) \odot\left(X X^{T}\right)\right],
+    \] 
+where $\otimes$ is the Kronecker product and $\odot$ is the Hadamard product. This kernel is closely related to the Jacobian, it is known that $\mathbb{E}\left[\mathcal{J}\left(W_{0}\right) \mathcal{J}\left(W_{0}\right)^{T}\right]=\nu^{2} \Sigma(X)$ if $V$ has i.i.d zero-mean entries with $\frac{\nu^2}{K}$ variance and $W_0$ has i.i.d. $\mathcal{N}(0,1)$ entries.
+    
+\end{itemize}
+
+\section{Overview}
+
+This work is along the lines of previous works that work with the NTK. In particular, using overparametrization, they will prove that the problem is close to its linearization $f(\theta) \approx f_{\operatorname{lin}}(\theta) = f(\theta_0) + \mathcal{J}(\theta_0)(\theta - \bar{\theta}_0)$ (since we will find solutions close to $\theta_0$) and that will allow them to state their optimization theorem for neural networks, to be explained later. The main trait of this work is that they remove the main assumption on the data (but the unit length assumption) made by other works and as a result their results incur some bias. In particular instead of assuming that two data points are not parallel, proving using this that the NTK is positive semi-definite and having a dependence (in terms of overparametrization and number of iterations needed) on the inverse minimum eigenvalue of the $NTK$ (e.g. \cite{du2018gradient}) or instead of assuming that any two data points satisfy $\norm{x_i-x_j} \geq \delta$ and having a dependence (in terms of overparametrization and number of iterations needed) on the inverse of $\delta$ (e.g. \cite{allen2018convergence}), they allow the NTK to have $0$ or very small eigenvalues and split the space into the information space (span of the first top left singular vectors of the jacobian at initialization or equivalently, first top eigenvectors of the NTK) and the nuisance space, proving that now the dependence (in terms of overparametrization and number of optimization time steps needed) is on the inverse of the lowest eigenvalue of the information space and the projection of the residual on the information space decreases exponentially while the projection of the residual on the nuisance space increases by a constant factor. They also work with the setting of arbitrary initialization in which under some assumptions, they can follow similar arguments to those made in the NTK, so they obtain an optimization guarantee in such a case. Also, the optimization guarantee translates to a generalization guarantee via the use of standard Rademacher complexity arguments.
+
+We outline now the main approach followed to prove their main (meta-)theorem:
+
+\begin{itemize}
+    \item Provided that our network has enough overparametrization, we can \textbf{relate the training of the neural network with gradient descent with a linear method}. This is in the sense that both the trajectory and the residuals of the linear method and the residuals will be close. Given an initial point $\theta_0 \in \R^p$, define an $(\epsilon_0, \beta)$ reference Jacobian $J \in \R^{Kn\times \max(Kn,p)}$ a matrix satisfying:
+        \[
+        \|J\| \leq \beta, \quad\left\|\mathcal{J}\left(\theta_{0}\right) \mathcal{J}^{T}\left(\theta_{0}\right)-J J^{T}\right\| \leq \epsilon_{0}^{2}, \quad \text { and } \quad\left\|\overline{\mathcal{J}}\left(\theta_{0}\right)-J\right\| \leq \epsilon_{0}
+        \] 
+        where $\overline{\mathcal{J}}(\theta_0) \in \R^{Kn \times \max(Kn,p)}$ is a matrix obtained by appending $\max(0, Kn-p)$ zero columns to $\mathcal{J}(\theta_0)$ (note $\mathcal{J}(\theta_0) \in \R^{Kn\times p}$).
+
+        In the random initialization setting, the reference Jacobian will be the NTK. In the arbitrary initialization setting, the reference Jacobian will be the Jacobian at that initialization.
+
+        The bounded spectra of $J$ will be an assumption in the arbitrary initialization and a consequence of the properties of the NTK in the other case. The reason why the other two conditions are true for the random initialization regime is that in the overparametrization regime the NTK of the finite net tends to the infinite width limit NTK.
+    \item \textbf{Bounded perturbation.} Due to the overparametrization and the small choice of the learning rate we will have 
+        \[
+            \norm{\theta_0-\theta_\tau} < R,
+        \] 
+        for a constant $R$ for all $t$ between $0$ and $T$, where $T$ is picked later. This will along with overparametrization imply 
+        \[
+        \norm{J(\theta_0)-J(\theta_\tau)} < \epsilon.
+        \] 
+        for a constant $\epsilon$.
+    \item Now if we followed other works on the NTK, we would \textbf{analyze the linear case} and would see that the residual of the linearized problem, $\tilde{r}_\tau$ evolves in a precise sense
+        \[
+        \widetilde{r}_{\tau}=U\left(I-\eta \Lambda^{2}\right)^{\tau} a=\sum_{s=1}^{n K}\left(1-\eta \lambda_{s}^{2}\right)^{\tau} a_{s} u_{s}
+        \] 
+        where we are using the matrices $U$ and $\Lambda$ that come from the singular value decomposition of the reference Jacobian $J = U\Lambda V$. Also, $\lambda_s$ are the diagonal entries of $\Lambda$, $u_s$ are the rows of $U$ and $a$ is a vector whose value is the projection of the initial residual via $U$, i.e. $a = U^\top\tilde{r}_0 = U^\top r_0$. Previous approaches used that $\lambda_{nK}^2$, (the smallest one) is positive, and set a good value of the overparametrization and learning rate parameters (high and low respectively) to show that the corresponding eigenvalue for the Jacobian at initialization is positive too and finally, they used the bounded perturbation property to conclude that the residual also decreases with time. In this work, we follow this approach only for the information space, and since there is no assumption on $\lambda_{nK}^2$ being $>0$, the approximation error incurred by the linearization could mean that the projection of the residual on the nuisance space is increasing. However, if it increases it does it at a slow pace, since the approximation error is low in the overparametrization regime. In particular, we have, for the linearized regime
+        \[
+        \left\|\widetilde{r}_{\tau}\right\|_{\ell_{2}} \leq\left(1-\eta \alpha^{2}\right)^{\tau}\left\|\Pi_{\mathcal{I}}\left(r_{0}\right)\right\|_{\ell_{2}}+\left\|\Pi_{\mathcal{N}}\left(r_{0}\right)\right\|_{\ell_{2}}.
+        \] 
+        and if we define $e_{\tau+1}=r_{\tau+1}-\widetilde{r}_{\tau+1}$ then it obeys (assuming small learning rate, in particular $\eta<\beta^2$):
+        \[
+        \left\|e_{\tau+1}\right\|_{\ell_{2}} \leq \eta\left(\epsilon_{0}^{2}+\epsilon \beta\right)\left\|\widetilde{r}_{\tau}\right\|_{\ell_{2}}+\left(1+\eta \epsilon^{2}\right)\left\|e_{\tau}\right\|_{\ell_{2}}
+        \] 
+        which intuitively means that the error increases by a summand that is of the order of the residual plus a multiplicative expansion with respect to the previous error, due to the nuisance space. However, the rate of increase is small enough so that after $T$ iterations the error will be controlled. Once we have this, we can proceed to the next step.
+    \item Use overparametrization (and bounded perturbation) to prove that in particular one has
+        \[
+        \left\|r_{\tau}-\widetilde{r}_{\tau}\right\|_{\ell_{2}} \leq \frac{3}{5} \frac{\delta \alpha}{\beta}\left\|r_{0}\right\|_{\ell_{2}} \quad \text { and } \quad\left\|\overline{\theta}_{\tau}-\widetilde{\theta}_{\tau}\right\|_{\ell_{2}} \leq \delta \frac{\Gamma}{\alpha}\left\|r_{0}\right\|_{\ell_{2}},
+        \] 
+        where $\delta$ is a hyperparameter, $\Gamma$ is another hyperparameter that modulates the total number of time steps (that is chosen to be $T = \frac{\Gamma}{\eta \alpha^2}$). Finally, $\bar{\theta}$ is equal to $\theta\in\R^{p}$ padded with zeroes till size $\max(Kn,p)$.
+    \item Prove bounded initial residual. In the random initialization regime, this will be a property one can prove about the NTK. In the arbitrary initialization regime, it is an assumption.
+    \item \textbf{Put all together} to conclude
+        \[
+        \left\|r_{T}\right\|_{\ell_{2}} \leq e^{-\Gamma}\left\|\Pi_{\mathcal{I}}\left(r_{0}\right)\right\|_{\ell_{2}}+\left\|\Pi_{\mathcal{N}}\left(r_{0}\right)\right\|_{\ell_{2}}+\frac{\delta \alpha}{\beta}\left\|r_{0}\right\|_{\ell_{2}}.
+        \] 
+    
+        
+\end{itemize}
+
+
+
+\subsection{Some Proofs}
+\label{sec:some-proofs}
+
+In this section, we give more precise statements and prove some of the
+things we talked about in the previous section.
+
+
+We will first make the following two assumptions about the jacobians
+of our non-linear models. We will see that these assumptions hold when
+these non-linear models are two-layered neural networks with smooth
+activation functions.
+
+\begin{assump}[$\beta$-Bounded spectrum]\label{assump:assump1}
+  The non-linear function $f:\reals^p\rightarrow\reals^n$ satisfies
+  the $\beta$-bounded spectrum assumption, when the jacobian
+  associated with $f$ satisfies the following for all
+  $\theta\in\reals^p$
+  \begin{equation}
+    \label{eq:bound-spec-assump}
+    \norm{\cJ\br{\vec{\theta}}}\le\beta
+  \end{equation}
+\end{assump}
+
+\begin{assump}[$\br{\epsilon,R,\theta_0}$-bounded jacobian perturbation]\label{assump:assump2}
+  The non-linear function $f:\reals^p\rightarrow\reals^n$ satisfies
+  the $\br{\epsilon,R,\theta_0}$-bounded jacobian perturbation when
+  the following is satisfied for all $\theta\in\reals^p$ such that
+  $\norm{\theta-\theta_p}\le R$
+  \begin{equation}
+    \label{eq:bound-pert-assump}
+    \norm{\cJ\br{\theta} - \cJ\br{\theta_0}}\le\dfrac{\epsilon}{2}
+  \end{equation}
+\end{assump}
+We will be looking at the following meta theorem.
+
+\begin{thm}\label{thm:meta-thm1}
+  Consider a non-linear least squares problem of the form
+  $\cL\br{\theta} = \frac{1}{2}\norm{f\br{\theta} - y}_2^2$ with
+  $f:\reals^p\rightarrow\reals^{nK}$ the multi-class non-linear
+  mapping, $\theta\in\reals^p$ the parameters of the model, and
+  $\vec{y}\in\reals^{nK}$ the concatenated labels. Let $\bar{\theta}$ be a zero-padded $\theta$ till
+  size $\mathrm{max}\br{Kn,p}$, Also consider a point
+  $\theta_0\in\reals^p$ with $\vec{J}$ an $\br{\epsilon_0,\beta}$
+  reference Jacobian associated with $\cJ\br{\theta_0}$, and fitting the linearized problem
+  $f_{\mathrm{lin}}\br{\widetilde{\theta}} = f\br{\theta_0} +
+  \vec{J}\br{\widetilde{\theta} - \bar{\theta_0}}$ via the loss
+  $\cL_{\mathrm{lin}}\br{\theta} =
+  \frac{1}{2}\norm{f_{\mathrm{lin}}\br{\theta} - y}_2^2$.\\
+  % \\ \noindent\textbf{\textbullet Information and Nuisance
+  % subspace:}
+  
+  Furthermore define the information $\cI$ and nuisance $\cN$
+  subspaces and the truncated Jacobian $\vec{J}_{\cI}$ associated with
+  the reference jacobian $\vec{J}$ based on a cut-off spectrum value
+  of $\alpha$.\\
+
+  Furthermore consider a point $\theta_0\in\reals^p$, a tolerance
+  level $0<\delta\le 1$, stopping time $\Gamma\ge 1$ and assume the
+  Jacobian mapping $\cJ\br{\theta}\in\reals^{nK\times p}$ associated
+  with $f$ obeys $\beta$-Bounded spectrum assumption~(Assumption \ref{assump:assump1})
+  and $\br{\epsilon,R,\theta_0}$-bounded jacobian perturbation
+  assumption~(Assumption \ref{assump:assump2}) for 
+  \begin{equation}
+    \label{eq:theta_diam}
+    %\norm{\theta - \theta_0}\le
+    R := 2\br{\norm{\vec{J}_\cI^\dagger
+        \vec{r}_0}_2 +
+      \frac{\Gamma}{\alpha}\norm{\Pi_\cN\br{\vec{r}_0}} + \delta\frac{\Gamma}{\alpha}\norm{\vec{r}_0}_2}
+  \end{equation}
+  and
+  \begin{equation}
+    \label{eq:epsilon_upper}
+    \epsilon\le \dfrac{\delta\alpha^3}{5\Gamma\beta^2}
+  \end{equation}
+ %\\ \noindent\textbf{\textbullet Closeness of Reference Jacobian$\vec{J}~\br{\epsilon_0^2}$ and True
+ %  Jacobian~$\cJ\br{\theta}~\br{\epsilon}$ to inital
+ %  Jacobian~$\cJ\br{\theta_0}$}:
+ Finally assume the following in regards to the reference Jacobian.
+   \begin{equation}
+    \label{eq:epsilon_zero_upper}
+    \epsilon_0\le \dfrac{\min\br{\delta\alpha, \sqrt{\frac{\delta\alpha^3}{\Gamma\beta}}}}{5}
+  \end{equation}
+  
+  
+  We run gradient descent iterations of the form a) Original Problem: $\theta_{\tau + 1} =
+  \theta_\tau - \eta\nabla\cL\br{\theta_\tau}$ and
+  b) Linearized Problem: $\widetilde{\theta}_{\tau+1} = \widetilde{\theta}_\tau -
+  \eta\nabla\cL_{\mathrm{lin}}\br{\widetilde{\theta}_\tau}$ starting from $\theta_0$ with step
+  size $\eta$ obeying $\eta\le \frac{1}{\beta^2}$. 
+
+Then for all iterates obeying $0\le \tau\le T:= \frac{\Gamma}{\eta\alpha^2}$
+  iterations of the original $\br{\theta_\tau}$ and linearized
+  $\br{\widetilde{\theta}_\tau}$ problems and the corresponding
+  residuals $\vec{r}_\tau:=f\br{\theta_\tau} - \vec{y}$ and
+  $\widetilde{\vec{r}}_\tau:=f_{\mathrm{lin}}\br{\widetilde{\theta}_\tau}
+  - \vec{y}$ closely track each other.
+
+  That is
+  \begin{itemize}
+  \item \textbf{Original and linear residuals are close}: \begin{equation}
+    \label{eq:residual_close}
+    \norm{\vec{r}_\tau - \widetilde{\vec{r}}_\tau}\le \dfrac{3}{5}\dfrac{\delta\alpha}{\beta}\norm{\vec{r}_0}
+  \end{equation}
+\item \textbf{Original and linearized paramaters are close}:
+  \begin{equation}
+    \label{eq:param_close}
+   \norm{\bar{\theta}_\tau - \widetilde{\theta}_\tau}\le \delta\dfrac{\Gamma}{\alpha}\norm{\vec{r}_0}
+  \end{equation}
+\item \textbf{Original iterates are close to initialization}: Furthermore, for all iterates $0\le \tau\le
+T:=\dfrac{\Gamma}{\eta\alpha^2}$, we have that the original parameters
+$\theta_\tau$ is close to the inital parameters.
+\begin{equation}
+  \label{eq:final_param_close}
+  \norm{\theta_\tau - \theta_0}\le \dfrac{R}{2} =
+  \norm{\vec{J}_{\cI}^\dagger\vec{r}_0}_2 +
+  \dfrac{\Gamma}{\alpha}\norm{\Pi_\cN\br{\vec{r}_0}}_2 + \delta\dfrac{\Gamma}{\alpha}\norm{\vec{r}_0}_2
+\end{equation}
+\item \textbf{Final non-linear residual is bounded}: and at $\tau=T$, we have that
+\begin{equation}
+  \label{eq:final_residual}
+  \norm{\vec{r}_T}_2\le e^{-\Gamma}\norm{\Pi_\cI\br{\vec{r}_0}}_2 +
+  \norm{\Pi_\cN\br{\vec{r}_0}} + \dfrac{\delta\alpha}{\beta}\norm{\vec{r}_0}_2
+\end{equation}
+\end{itemize}
+\end{thm}
+
+First, we will show that the difference of the non-linear and the
+linear residual in the $\tau^{\it th}$ time step is of the order of
+the difference in the previous time step added to a term linear in the
+residual of the linearized problem. Precisely, it is stated as
+follows.
+
+\begin{lem}[Lemma 6.7]\label{lem:pert-one-step}
+  Assume Assumption~\ref{assump:assump1}~(with $\beta$) and
+  Assumption~\ref{assump:assump2}~(with $\br{\epsilon,R,\theta_0}$) hold and
+  $\theta_\tau$ and $\theta_{\tau + 1}$ are within an $R$
+  neighbourhood of the initilization $\theta_0$,
+  i.e. $\norm{\theta_\tau - \theta_0}\le R$ and
+  $\norm{\theta_{\tau+1}- \theta_0}\le R$.
+
+  Then, on running gradient
+  descent with $\eta\le \frac{1}{\beta^2}$. the difference between the
+  non-linear and the linear residual $\vec{e}_{\tau+1} =
+  \vec{r}_{\tau+1} - \widetilde{\vec{r}}_{\tau+1}$ follow
+
+  \begin{equation}
+    \label{eq:growth_of_res_error}
+    \norm{\vec{r}_{\tau+1}}_2 \le \eta\br{\epsilon_0^2 +
+      \epsilon\beta}\norm{\widetilde{\vec{r}}_\tau}_2 + \br{1 + \eta\epsilon^2}\norm{\vec{e}_\tau}_2
+  \end{equation}
+\end{lem}
+\begin{proof}
+  Let $\vec{A} = \cJ\br{\theta_0},\vec{B}_2=\cJ\br{\theta_\tau}$ and
+  \[\vec{B}_1=\cJ\br{\theta_\tau,\theta_{\tau+1}} =
+    \int_0^1\cJ\br{t\theta_{\tau+1}+\br{1-t}\theta_\tau}dt\]
+  By $0^{\it th}$ order Taylor expansion with remainder term, we can
+  write
+  \begin{align*}
+    f\br{\theta_{\tau+1}} &= f\br{\theta_\tau -
+    \eta\nabla\cL\br{\theta_\tau}} = f\br{\theta_\tau} +
+                            \eta\vec{B}_1\nabla\cL\br{\vec{\theta_\tau}}\\
+                          &= f\br{\theta_\tau} +
+                            \eta\vec{B}_1\vec{B}_2^\top\br{f\br{\theta_\tau}
+                            - \vec{y}}\\
+    \vec{r}_{\tau+1} =  f\br{\theta_{\tau+1}} - \vec{y} &= \br{\vec{I}
+                                                          - \eta\vec{B}_1\vec{B}_2^\top}\vec{r}_\tau
+  \end{align*}
+  For the linear problem, we have
+  \[\widetilde{\vec{r}}_{\tau+1} = \br{\vec{I} -
+      \vec{J}\vec{J}^\top}\widetilde{\vec{r}}_\tau\]
+  Thus
+  \begin{align*}
+    \norm{\vec{e}_{\tau+1}} = \norm{{\vec{r}}_{\tau+1} -
+    \widetilde{\vec{r}}_{\tau+1}} &= \norm{\br{\vec{I}
+                                                          -
+                                    \eta\vec{B}_1\vec{B}_2^\top}\vec{r}_\tau
+                                    - \br{\vec{I} -
+                                    \vec{J}\vec{J}^\top}\widetilde{\vec{r}}_\tau}\\
+                                  &=\norm{\br{\vec{I} -
+                                    \vec{B}_1\vec{B}_2^\top}\vec{e}_\tau
+                                    - \eta\br{\vec{B}_1\vec{B}_2^\top
+                                    - \vec{J}\vec{J}^\top}\widetilde{\vec{r}}_\tau}\\
+                                 &\le\norm{\br{\vec{I} -
+                                    \vec{B}_1\vec{B}_2^\top}\vec{e}_\tau}
+                                    + \eta\norm{\br{\vec{B}_1\vec{B}_2^\top
+                                    - \vec{J}\vec{J}^\top}}\norm{\widetilde{\vec{r}}_\tau}\\
+  \end{align*}
+  
+  First, we bound $\norm{\br{\vec{I} -
+      \vec{B}_1\vec{B}_2^\top}\vec{e}_\tau}$
+  using the fact~(Lemma 6.3) that if
+  $\vec{A},\vec{B}\in\reals^{n\times p}$
+  are matrices obeying
+  $\norm{\vec{A}},\norm{\vec{B}}\le\beta,\norm{\vec{B}-\vec{A}}\le\epsilon$,
+  then
+  $\forall~\vec{z}\in\reals^n,\eta\le\frac{1}{\beta^2}$
+  we have that $\norm{\br{\vec{I} -
+      \vec{B}_1\vec{B}_2^\top}\vec{z}}\le\br{1+\eta\epsilon^2}\norm{\vec{z}}_2$.
+  Next, we bound $\norm{\br{\vec{B}_1\vec{B}_2^\top
+                                    -
+                                    \vec{J}\vec{J}^\top}}$
+                                as follows.
+                                \begin{align*}
+                                  \norm{\br{\vec{B}_1\vec{B}_2^\top
+                                    -
+                                    \vec{J}\vec{J}^\top}} &= \norm{\br{\vec{B}_1\vec{B}_2^\top
+                                    -\vec{A}\vec{B}_2^\top +
+                                                            \vec{A}\vec{B}_2^\top
+                                                            - \vec{A}\vec{A}^\top
+                                                            + \vec{A}\vec{A}^\top
+                                                            - \vec{J}\vec{J}^\top}}\\
+                                                          &\le \norm{\br{\vec{B}_1
+                                    -\vec{A}}\vec{B}_2^\top} +
+                                                            \norm{\vec{A}\br{\vec{B}_2^\top
+                                                            - \vec{A}^\top}}
+                                                            + \norm{\vec{A}\vec{A}^\top
+                                                            -
+                                                            \vec{J}\vec{J}^\top}\\
+                                                          &\beta\dfrac{\epsilon}{2}
+                                                            +
+                                                            \beta\dfrac{\epsilon}{2}
+                                                            + \epsilon_0^2
+                                \end{align*}
+\end{proof}
+
+Next, we will prove a lemma that will finally allow us to control the
+growth of the difference between the linear and the non-linear
+residuals.
+
+\begin{lem}[Lemma 6.8]\label{eq:growth-pert-lemma}
+  Consider positive scalars $\Gamma,\alpha,\epsilon,\eta>0$. Also
+  assume $\eta\le\frac{1}{\alpha^2}$ and
+  $\alpha\ge\sqrt{2\Gamma\epsilon}$ and set
+  $T=\frac{\Gamma}{\eta\alpha^2}$. For $0\le
+  \tau\le T$, non-negative entries $\rho_,\rho_+\ge 0$, assume that the scalar sequences
+  $e_\tau$ and $\widetilde{r}_\tau$ obey the following 
+  \begin{itemize}
+  \item $e_0 = 0$
+  \item $\widetilde{r}_\tau\le\br{1 - \eta\alpha^2}^\tau \rho_+ +
+    \rho_-$
+  \item $e_\tau\le \br{1 + \eta\epsilon^2}e_{\tau -1} +
+    \eta\Theta\widetilde{r}_{\tau - 1}$
+  \end{itemize}
+  
+  Let  $\Lambda = \dfrac{2\br{\Gamma\rho_- + \rho_+}}{\alpha^2}$. Then for all $0\le\tau\le T$, the following holds
+  \[e_\tau\le \Theta\Lambda\]
+\end{lem}
+\begin{proof}
+  We will prove this by induction. Note that $e_0=0$ satisfies the
+  base condition. Suppose, $e_{t}\le\Theta\Lambda$ holds for all
+  $t <\tau$.
+
+  Thus for all $ 0\le t\le \tau$,
+  \begin{align*}
+    e_{t}&\le \br{1 + \eta\epsilon^2}e_{t -
+              1}+\eta\Theta\widetilde{r}_{t-1}\\
+            &\le e_{t - 1} + \eta\epsilon^2e_{t-1} +
+              \eta\Theta\br{\br{1-\eta\alpha^2}^{t-1}\rho_+ +
+              \rho_-}\\
+            &\le e_{t-1} + \eta\Theta\br{\epsilon^2\Lambda + \br{1-\eta\alpha^2}^{t-1}\rho_+ +
+              \rho_- }\\
+              \dfrac{  e_{t} -
+    e_{t-1}}{\Theta}&\le \eta\br{\epsilon^2\Lambda + \br{1 -
+                         \eta\alpha^2}^{t-1}\rho_++\rho_-}\\
+              \dfrac{  e_{\tau}}{\Theta} = \sum_{t=0}^\tau  \dfrac{  e_{t} -
+    e_{t-1}}{\Theta} &\le \eta\tau\br{\epsilon^2\Lambda + \rho_-}+ \eta\rho_+\sum_{t=0}^{\tau}{\br{1 -
+                       \eta\alpha^2}^{t-1}}\\
+         &=\eta\tau\br{\epsilon^2\Lambda + \rho_-}+ \eta\rho_+\dfrac{1
+           - \br{1 -
+                       \eta\alpha^2}^{\tau}}{\eta\alpha^2}\\
+         &\le\eta T\br{\epsilon^2\Lambda + \rho_-}+ \dfrac{\rho_+}{\alpha^2}\\
+         &\le \dfrac{\Gamma\epsilon^2\Lambda +
+           \Gamma\rho_-}{\alpha^2}+ \dfrac{\rho_+}{\alpha^2}\\
+    &= \dfrac{\Gamma\epsilon^2\Lambda}{\alpha^2}+
+      \dfrac{\Lambda}{2}\\
+         &\le \Gamma &&\because \alpha \ge \sqrt{2\Gamma\epsilon}
+  \end{align*}
+\end{proof}
+
+We will combine this to provide a rough proof
+of~\ref{eq:residual_close} using induction.
+
+\begin{proof}[Proof of Theorem~\ref{thm:meta-thm1}] We will prove this
+  by induction. We will only provide a rough proof sketch to keep it
+  simple and ignore the computations. We will assume that for all
+  $0\le  t\le \tau$ the induction hypothesis holds true
+  i.e. $\norm{\theta_0 - \theta_t}\le R$~\ref{eq:theta_diam},
+  ~\ref{eq:residual_close},~\ref{eq:param_close},~\ref{eq:final_param_close},
+  and ~\ref{eq:final_residual} holds true. We will show that they all
+  hold true for $t=\tau+1$
+  \begin{itemize}
+  \item \textbf{Proving $\norm{\theta_0 - \theta_t}\le R$ for all
+      $t=\tau+1$:}
+    We know by~\eqref{eq:final_param_close} that $\norm{\theta_0 -
+      \theta_\tau}\le \frac{R}{2}$. We need to show that
+    $\norm{\theta_\tau - \theta_{\tau+1}}\le\frac{R}{2}$.
+    \begin{align*}
+      \norm{\theta_\tau - \theta_{\tau+1}} &=
+                                             \eta\norm{\nabla\cL\br{\theta_\tau}}
+                                             =
+                                             \eta\norm{\cJ^\top\br{\theta_\tau}\vec{r}_\tau}\\
+                                           &\le
+                                             \eta\norm{\vec{J}^\top\widetilde{\vec{r}}_\tau}
+                                             +
+                                             \eta\norm{\br{\cJ\br{\theta_\tau}
+                                             -
+                                             \vec{J}}^\top}\norm{\widetilde{\vec{r}}_\tau}
+                                             +
+                                             \eta\norm{\cJ\br{\theta_\tau}}\norm{\widetilde{\vec{r}}_\tau
+                                             - \vec{r}_\tau}\\
+    \end{align*}
+
+    We can bound the first term as~(Page 25) as \[
+    \eta\norm{\vec{J}^\top\widetilde{\vec{r}}_\tau}\le  \norm{\vec{J}_\cI^\dagger
+        \vec{r}_0}_2 +
+      \frac{\Gamma}{\alpha}\norm{\Pi_\cN\br{\vec{r}_0}}  \]the second
+    term as
+    \[ \eta\norm{\br{\cJ\br{\theta_\tau}-
+          \vec{J}}^\top}\norm{\widetilde{\vec{r}}_\tau}\le
+      \eta\norm{\br{\cJ\br{\theta_\tau}- \cJ\br{\theta_0}}+\br{\cJ\br{\theta_0}-
+          \vec{J}}^\top}\norm{\widetilde{\vec{r}}_0}\le\br{\epsilon+\epsilon_0}\norm{\widetilde{\vec{r}}_0}\le\dfrac{2\delta\alpha}{5\beta^2}\norm{\widetilde{\vec{r}}_0}\]
+    and the third term as~(Using Eq~\eqref{eq:residual_close})
+    
+    \[\eta\norm{\cJ\br{\theta_\tau}}\norm{\widetilde{\vec{r}}_\tau
+        - \vec{r}_\tau} \le
+      \dfrac{3\delta\alpha}{5\beta^2}\norm{\widetilde{\vec{r}}_0}\]
+    
+    Combining them we get
+    \[ \norm{\theta_\tau - \theta_{\tau+1}} \le
+       \norm{\vec{J}_\cI^\dagger
+        \vec{r}_0}_2 +
+      \frac{\Gamma}{\alpha}\norm{\Pi_\cN\br{\vec{r}_0}}  +
+      \dfrac{\delta\alpha}{\beta^2}\norm{\widetilde{\vec{r}}_0} =
+      \dfrac{R}{2} \]
+  \item \textbf{Proving that $\norm{\vec{e}_{\tau+1}}\le \dfrac{3}{5}\dfrac{\delta\alpha}{\beta}\norm{\vec{r}_0}$:}
+    We have shown  that $\norm{\theta_t - \theta_0}\le R$, for
+    $t\le \tau+1$. Then we can
+    use Lemma~\ref{lem:pert-one-step} to say that for all
+    $0< t\le \tau+1$ the following holds
+    \[\norm{\vec{e}_t}\le \eta\br{\epsilon_0^2 +
+        \epsilon\beta}\norm{\widetilde{\vec{r}}_{t-1}} +
+      \br{1+\eta\epsilon^2}\norm{\vec{e}_{t-1}}_2\]
+
+    We already know that the linear residuals satisfy the following
+    for all $0<t\le \tau+1$
+    \[ \norm{\widetilde{r}_t} \le \br{1 -
+        \eta\alpha^2}^t\norm{\Pi_\cI\br{\vec{r_0}} } +
+      \norm{\Pi_\cN\br{\vec{r}_0}}\]
+
+    Finally, we can apply Lemma~\ref{eq:growth-pert-lemma} with the
+    following substitutions
+
+    \begin{itemize}
+    \item $\Theta = \epsilon_0^2 + \epsilon\beta$
+    \item $\rho_+ = \norm{\Pi_\cI}\br{\vec{r}_0},$\quad
+      $\rho_{\_} = \norm{\Pi_\cN}\br{\vec{r}_0}$
+    \item $e_\tau =
+      \norm{\vec{e}_{\tau+1}},$\quad$\widetilde{r}_\tau =
+      \norm{\widetilde{\vec{r}}_{\tau+1}}$
+    \end{itemize}
+    Note that all the assumptions of Lemma~\ref{eq:growth-pert-lemma}
+    are also satisfied i.e. a)
+    $\eta\le\frac{1}{\beta^2}\le\frac{1}{\alpha^2}$ as
+    $\beta\ge\alpha$, the cutoff singular value of $\vec{J}$, and b)
+    By definition of $\epsilon$~(eq.~\ref{eq:epsilon_upper}),
+    $\frac{\alpha}{\epsilon}\ge\frac{5\Gamma}{\delta}\frac{\beta^2}{\alpha^2}\ge\sqrt{2\Gamma}.~\therefore\alpha\ge$
+
+
+    Thus,
+    \begin{align*}
+      \norm{\vec{e}_{\tau+1}}&\le 2\br{\epsilon_0^2
+                           +\epsilon\beta}\dfrac{\Pi_\cI\br{\vec{r}_0} +
+                           \Gamma\Pi_{\cN}\br{\vec{r}_0}}{\alpha^2}\\
+                         &\le \dfrac{2\Gamma\br{\epsilon_0^2
+                           +\epsilon\beta}\norm{\vec{r}_0}}{\alpha^2}\\
+                         &\le
+                           \br{\frac{2}{25}+\frac{2}{5}}\frac{\delta\alpha}{\beta}\norm{\vec{r}_0}\le \frac{3}{5}\frac{\delta\alpha}{\beta}\norm{\vec{r}_0}
+    \end{align*}
+  \end{itemize}
+
+  Finally, we can prove Eq~\eqref{eq:final_residual}
+  \begin{align*}
+    \norm{\vec{r}_T}&\le \norm{\widetilde{\vec{r}}_T} + \norm{\vec{r}_T
+                      - \widetilde{\vec{r}}_T}\\
+                    &\le \br{1 -
+        \eta\alpha^2}^t\norm{\Pi_\cI\br{\vec{r_0}} } +
+      \norm{\Pi_\cN\br{\vec{r}_0}} +
+                      \frac{3}{5}\frac{\delta\alpha}{\beta}\norm{\vec{r}_0}\\
+                    &\le e^{-\Gamma}\norm{\Pi_\cI\br{\vec{r_0}} } +
+      \norm{\Pi_\cN\br{\vec{r}_0}} +\frac{\delta\alpha}{\beta}\norm{\vec{r}_0}
+  \end{align*}
+\end{proof}
+
+For a neural network, we just need to ensure that
+Assumption~\eqref{assump:assump1} and~\eqref{assump:assump2} are
+satisfied. We state the a simplified theorem for the generelization of
+multi-class neural networks below without providing a proof. But it
+follows from the above using a rademacher complexity argument.
+
+\begin{thm}[Generelization of multi-output neural network]
+  With $\Gamma>0$, consider an i.i.d. dataset
+  $\bc{\br{\vec{x}_i,y_i}}\in\reals^d\times\reals^K$ where $\vec{x}_i$
+  are unit length data points and $\vec{y}_i$s are one-hot encoded
+  labels.
+
+  Consider the neural network to be initialized with $\vec{W}_0\sim
+  \cN\br{0,\vec{I}}$ and $\vec{V}$ be properly scaled rademacher
+  entries.
+
+  Consider the reference jacobian, with information and nuisance
+  subspaces divided according to $\alpha$, to be
+  $\vec{J}=\Sigma\br{\vec{X}}^{\nicefrac{1}{2}}$
+  where \[\Sigma\br{\vec{X}} =
+    \vec{I}_K\otimes\bE\bs{\br{\phi^\prime\br{\vec{X}\vec{w}}\phi^\prime\br{\vec{X}\vec{w}}^\top}\odot\br{\vec{X}\vec{X}^\top}}\]
+
+  Assume the overparameterization to be \[k\ge\dfrac{\Gamma^4\log
+      n}{\alpha^8}\]
+
+  Then after $T=\dfrac{\Gamma}{\eta\alpha^2}$ iterations, the
+  generalization error obeys
+  \[\mathrm{Err}\br{\vec{W}_T}\le
+    \dfrac{\Pi_\cN\br{\vec{y}}}{\sqrt{n}} + e^{-\Gamma} +\dfrac{\Gamma}{\alpha\sqrt{n}}\]
+\end{thm}
+\begin{lem}
+  For a neural network as defined above where the activation function
+  $\phi$ is such that $\abs{\phi^\prime\br{\vec{z}}}\le B$ and
+  $\abs{\phi^{\prime\prime}\br{\vec{z}}}\le B$ for all $\vec{z}$, $K$
+  is the number of classes, then for all $\vec{W}\in\reals^{k\times
+    d}$\[\norm{\cJ\br{\vec{W}}}\le
+    B\sqrt{Kk}\norm{\vec{V}}_\infty\norm{\vec{X}}\]
+  and if all data points are unit norm i.e. $\norm{\vec{x}_i} = 1$
+  then the jacobian is lipschitz with respect to the spectral norm for
+  all $\vec{W},\vec{\widetilde{\vec{W}}}\in\reals^{k\times d}$
+  \[\norm{\cJ\br{\vec{W}} - \cJ\br{\widetilde{\vec{W}}}}\le B\sqrt{K}\norm{\vec{V}}_\infty\norm{\vec{X}}\]
+\end{lem}
+
+\begin{proof}
+  Given two matrices $\vec{A} =
+  \bs{\vec{A}_1^\top,\cdots,\vec{A}_K^\top}$ and  $\vec{B} =
+  \bs{\vec{B}_1^\top,\cdots,\vec{B}_K^\top}$, the following is true
+  \[\norm{\vec{A}}\le\sqrt{K}\sup_{\ell=1,..,K}\norm{\vec{A}_\ell}\text{
+    \enskip and\enskip}\norm{\vec{A} -
+    \vec{B}}\le\sqrt{K}\sup_{\ell=1,..,K}\norm{\vec{A}_\ell-\vec{B}_\ell}\]
+
+We will first show that for a single output neural network i.e. for
+$K=1$ we have $\norm{\cJ\br{\vec{W}}}\le
+B\sqrt{k}\norm{\vec{V}}_\infty\norm{\vec{X}}$
+
+\begin{align*}
+  \cJ\br{\vec{W}}\cJ^\top\br{\vec{W}} &=
+  \br{\phi^\prime\br{\vec{X}\vec{W}^\top}\diag{\vec{v}}\diag{\vec{v}}\phi^\prime\br{\vec{W}\vec{X}^\top}}\odot\br{\vec{X}\vec{X}^\top}\\
+\norm{ \cJ\br{\vec{W}}}^2 &\le
+                            \br{\max_i\norm{\diag{\vec{v}}\phi^\prime\br{\vec{W}\vec{x}_i}}^2}\norm{\vec{X}}_2^2\\
+                                      &\le kB^2\norm{\vec{v}}_\infty^2\norm{\vec{X}}_2^2
+\end{align*}
+Thus for multi-output neural networks, we have that
+\[\norm{ \cJ\br{\vec{W}}}\le
+  \sqrt{KkB^2}\norm{\vec{V}}_\infty\norm{\vec{X}}_2 \]
+
+We are omitting the proof of lipschitzness but will cover it if time permits.
+\end{proof}
+With this, we can apply the meta-theorem directly to multi-output
+neural networks by taking the NTK to be the reference Jacobian. One
+can prove that the NTK satisfies the assumptions of the reference
+Jacobian but we will omit the proof for simplicity and might discuss
+it if time permits.
+
+
+
+
+
+
+
+\section{Experiments}
+
+Authors use very recent methods to approximate the spectra of $J(\theta_\tau)J^\top(\theta_\tau)$. They perform experiments on CIFAR-10 and MNIST on ResNet20.
+
+\begin{itemize}
+    \item The value of the top eigenvalues increases significantly, comparing the Jacobian at initialization with the Jacobian after training. In general, it is observed that the Jacobian is approximately low-rank, in the sense that it has a small set of large eigenvalues and then the rest are fairly small. This fits naturally with their theory, allowing to set a good cutoff for their bounds.
+    \item They plot the norm of the projection of the residual onto the information and the nuisance space and observe that indeed, as predicted by the theory, the projection on the information space decreases much rapidly than the other one. Note that if training with some corrupted labels, and the residual corresponding to the noisy labels falls mostly into the nuisance space and analogously for the uncorrupted data and the information space, then the neural network would fit much faster the data that conveys information and this would have generalization implications at early stopping.
+    \item They measured the norm of the projection of the labels and the residuals at initialization, but using the information and nuisance space of two Jacobians: the one given by the initialization and the one given by the trained network. For both the labels and the initial residual, the majority of the projection lies in the nuisance space for the Jacobian at initialization but for the other one the converse happens: the projected norm onto the information space is significantly bigger than the projection onto the nuisance space. Authors argue that this adaptation would in principle suggest a better generalization according to their theory (possibly using the arbitrary initialization theorem and initializing to the value of the Jacobian at time some iterations before stopping). It would also suggest that this adaptation of the Jacobian would speed up training.  They also performed experiments with corrupted labels and saw that the projection onto the information space after training is not that large in that case. Also the normalized projection of the labels onto the nuisance space correlates with the test error.
+\end{itemize}
+
+\nocite{*}                 % Include refs not cited
+\bibliography{refs}        %use a bibtex bibliography file refs.bib
+\bibliographystyle{plain}  %use the plain bibliography style
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -158,6 +158,7 @@ learning and kernels (Jacot et al., 2018; Chizat & Bach, 2018b;...) Our analysis
 [https://arxiv.org/pdf/1906.05392.pdf]: #
 + ^[Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian](./papers/1906.05392.pdf)  -- [link](https://arxiv.org/pdf/1906.05392.pdf)
     + 06/2019
+    + [Notes](./notes/low_rank_jac_thm.pdf)
 
 ## Others
 

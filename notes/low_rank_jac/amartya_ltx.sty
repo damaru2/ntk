@@ -1,0 +1,87 @@
+
+% Theorem Environments
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{corollary}[thm]{Corollary}
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{proposition}[thm]{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{defn}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{assump}{Assumption}
+
+
+\def\LatinUpper{A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z}
+\def\LatinLower{a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}
+
+
+
+
+% Caligraphic fonts
+\newcommand{\genCal}[1]{\expandafter\newcommand\csname c#1\endcsname{{\mathcal #1}}}
+\@for\q:=\LatinUpper\do{%
+	\expandafter\genCal\q
+}
+
+% Blackboard fonts
+\newcommand{\genBb}[1]{\expandafter\newcommand\csname b#1\endcsname{{\mathbb #1}}}
+\@for\q:=\LatinUpper\do{%
+	\expandafter\genBb\q
+}
+
+% Fraktur fonts
+\newcommand{\genFk}[1]{\expandafter\newcommand\csname k#1\endcsname{{\mathfrak #1}}}
+\@for\q:=\LatinUpper\do{%
+	\expandafter\genFk\q
+}
+
+\newcommand{\genFkl}[1]{\expandafter\newcommand\csname k#1\endcsname{{\mathfrak #1}}}
+\@for\q:=\LatinLower\do{%
+	\expandafter\genFkl\q
+}
+
+
+% Vectors
+\renewcommand{\vec}[1]{{\mathbf{#1}}}
+\newcommand{\genLatinVec}[1]{\expandafter\newcommand\csname v#1\endcsname{{\vec #1}}}
+\@for\q:=\LatinLower\do{%
+	\expandafter\genLatinVec\q
+}
+
+
+% Greek symbol vectors
+\def\mydefgreek#1{\expandafter\def\csname v#1\endcsname{\text{\boldmath$\mathbf{\csname #1\endcsname}$}}}
+\def\mydefallgreek#1{\ifx\mydefallgreek#1\else\mydefgreek{#1}%
+   \lowercase{\mydefgreek{#1}}\expandafter\mydefallgreek\fi}
+\mydefallgreek {alpha}{beta}{gamma}{delta}{epsilon}{zeta}{eta}{theta}{iota}{kappa}{lambda}{mu}{nu}{xi}{omicron}{pi}{rho}{sigma}{tau}{upsilon}{phi}{chi}{psi}{omega}\mydefallgreek
+
+% Parentheses
+\newcommand{\bc}[1]{\left\{{#1}\right\}}
+\newcommand{\br}[1]{\left({#1}\right)}
+\newcommand{\bs}[1]{\left[{#1}\right]}
+\newcommand{\abs}[1]{\left| {#1} \right|}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\bsd}[1]{\left\llbracket{#1}\right\rrbracket}
+\newcommand{\ip}[2]{\left\langle{#1},{#2}\right\rangle}
+
+% Vector notations
+\newcommand{\reals}{\mathbb{R}}
+
+%Important functions
+\newcommand{\sgn}[1]{\mathrm{sign}(#1)}
+\newcommand{\diag}[1]{\mathrm{diag}\left(#1\right)}
+\newcommand{\rank}[1]{\mathrm{rank}\left(#1\right)}
+\newcommand{\rad}[2]{\mathrm{RAD}_{#2}(#1)}
+\newcommand{\supp}{\mathop{\mathrm{sup}}}
+\newcommand{\inff}{\mathop{\mathrm{inf}}}
+\newcommand{\argmax}{\mathop{\mathrm{argmax}}}
+\newcommand{\argmin}{\mathop{\mathrm{argmin}}}
+\newcommand{\norm}[1]{\mathrm{\left\lVert#1\right\rVert}}
+
+% Complexity operators
+\newcommand{\bigO}[1]{O\left(#1\right)}
+\newcommand{\softO}[1]{\widetilde{\cO}\br{{#1}}}
+\newcommand{\Om}[1]{\Omega\br{{#1}}}
+\newcommand{\softOm}[1]{\tilde\Omega\br{{#1}}}
