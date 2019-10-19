@@ -5,11 +5,12 @@ Papers with a ^ at the beginning of the title form the tentative list for the re
 We have used [hypothes.is](https://web.hypothes.is/) to some extent, see [this](https://via.hypothes.is/https://arxiv.org/pdf/1806.07572.pdf) for instance. There are notes for a few of the papers, which you can find linked below the relevant papers.
 
 ## Schedule
-+ 2/08/2019 Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
-+ 9/08/2019 Gradient Descent Finds Global Minima of Deep Neural Network.
++ 2/08/2019 [[notes](./notes/Neural_Tangent_kernels___Jacot_et_al.pdf)] Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
++ 9/08/2019 [[notes](./notes/du_et_al.pdf)]Gradient Descent Finds Global Minima of Deep Neural Network.
 + 16/08/2019 Fine-Grained Analysis of Optimization and Generalization for Overparameterized Two-Layer Neural Networks + insights from Gradient Descent Provably Optimizes Over-parameterized Neural Networks.
 + 23/08/2019 On Lazy Training in Differentiable Programming
 + 13/09/2019 Generalization bounds of stochastic gradient descent for wide and deep networks
++ 18/10/2019 [[notes](./notes/low_rank_jac_thm.pdf)] Generalization Guarantees for Neural Networks via Harnessing the Low-rank Structure of the Jacobian
 
 # Neural tangent kernel
 
