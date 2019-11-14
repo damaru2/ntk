@@ -197,7 +197,8 @@ learning and kernels (Jacot et al., 2018; Chizat & Bach, 2018b;...) Our analysis
     + 06/2019
     + Not about NTK, but authors suggest it could be extended to use NTK to analyze NN-based function approximation.
 
-[https://arxiv.org/pdf/1911.00809.pdf] #
+[https://arxiv.org/pdf/1911.00809.pdf]: #
+
 + [Enhanced Convolutional Neural Tangent Kernels](./papers/1911.00809.pdf)  -- [link](https://arxiv.org/pdf/1911.00809.pdf)
     + 11/2019
     + Enhances the NTK for convolutional networks of "On Exact Computation..." by adding some implicit data augmentation to the kernel that encodes some kind of local translation invariance and horizontal flipping.
